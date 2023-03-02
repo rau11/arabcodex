@@ -1,0 +1,1431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CodexMinningModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Download">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Year" Type="nvarchar" MaxLength="128" />
+          <Property Name="Country/Region" Type="nvarchar" MaxLength="128" />
+          <Property Name="Contaminant" Type="nvarchar" MaxLength="128" />
+          <Property Name="FoodGroup" Type="nvarchar" MaxLength="128" />
+          <Property Name="FoodIdentifier" Type="nvarchar" MaxLength="128" />
+          <Property Name="FoodCode" Type="nvarchar" MaxLength="128" />
+          <Property Name="FoodOrigin" Type="nvarchar" MaxLength="128" />
+          <Property Name="FoodAnalyzed" Type="nvarchar" MaxLength="128" />
+          <Property Name="StudyObjective" Type="nvarchar" MaxLength="128" />
+          <Property Name="SamplingPlan" Type="nvarchar" MaxLength="128" />
+          <Property Name="AnalyticalTechnique" Type="nvarchar" MaxLength="128" />
+          <Property Name="QualityAssurance" Type="nvarchar" MaxLength="128" />
+          <Property Name="LOD" Type="nvarchar" MaxLength="128" />
+          <Property Name="LODUnit" Type="nvarchar" MaxLength="128" />
+          <Property Name="LOQ" Type="nvarchar" MaxLength="128" />
+          <Property Name="LOQUnit" Type="nvarchar" MaxLength="128" />
+          <Property Name="Recovery" Type="int" />
+          <Property Name="Concentration" Type="nvarchar" MaxLength="128" />
+          <Property Name="Average" Type="int" />
+          <Property Name="Median" Type="nvarchar" MaxLength="128" />
+          <Property Name="RSD" Type="int" />
+          <Property Name="SamplesBelow" Type="int" />
+          <Property Name="Referece" Type="nvarchar" MaxLength="128" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'arabcodex.dbo.ErrorLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="addedon" />
+          </Key>
+          <Property Name="ERROR_NUMBER" Type="varchar" MaxLength="150" />
+          <Property Name="ERROR_SEVERITY" Type="varchar" MaxLength="150" />
+          <Property Name="ERROR_STATE" Type="varchar" MaxLength="150" />
+          <Property Name="ERROR_PROCEDURE" Type="varchar" MaxLength="150" />
+          <Property Name="ERROR_LINE" Type="varchar" MaxLength="150" />
+          <Property Name="ERROR_MESSAGE" Type="varchar(max)" />
+          <Property Name="addedon" Type="datetime" Nullable="false" />
+          <Property Name="Process" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="LookupMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="LookupParameter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LookupKey" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LookupValue" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MinningTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="500" />
+          <Property Name="FoodCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="Contaminant" Type="nvarchar" MaxLength="500" />
+          <Property Name="FoodGroup" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FoodIdentifier" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FoodCode" Type="nvarchar" MaxLength="500" />
+          <Property Name="FoodOrigin" Type="nvarchar" MaxLength="500" />
+          <Property Name="FoodAnalyzed" Type="nvarchar" MaxLength="500" />
+          <Property Name="StudyObjective" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SamplingPlan" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AnalyticalTechnique" Type="nvarchar" MaxLength="2000" />
+          <Property Name="QualityAssurance" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LOD" Type="nvarchar" MaxLength="100" />
+          <Property Name="LODUnit" Type="nvarchar" MaxLength="500" />
+          <Property Name="LOQ" Type="nvarchar" MaxLength="100" />
+          <Property Name="LOQUnit" Type="nvarchar" MaxLength="500" />
+          <Property Name="Recovery" Type="nvarchar" MaxLength="128" />
+          <Property Name="Concentration" Type="nvarchar" MaxLength="500" />
+          <Property Name="Average" Type="nvarchar" MaxLength="128" />
+          <Property Name="Median" Type="nvarchar" MaxLength="10" />
+          <Property Name="RSD" Type="nvarchar" MaxLength="128" />
+          <Property Name="SamplesBelow" Type="nvarchar" MaxLength="128" />
+          <Property Name="Referece" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="FoodName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ConcentrationRangeMax" Type="nvarchar" MaxLength="255" />
+          <Property Name="IndividualSampleAverageResults" Type="nvarchar" MaxLength="255" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsAcive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'arabcodex.dbo.Vw_Get_SA_Results' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_Get_SA_Results">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="LookupKey" />
+            <PropertyRef Name="LookupValue" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="BackgroundColor" />
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="128" />
+          <Property Name="LookupKey" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LookupValue" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="BackgroundColor" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'arabcodex.dbo.Vw_GetCountries' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetCountries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'arabcodex.dbo.Vw_GetLookupParameter' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetLookupParameter">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="LookupKey" />
+            <PropertyRef Name="LookupValue" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="BackgroundColor" />
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="128" />
+          <Property Name="LookupKey" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LookupValue" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="BackgroundColor" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'arabcodex.dbo.Vw_GetMinnigTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetMinnigTable">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IsValueExists" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="500" />
+          <Property Name="FoodCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="Contaminant" Type="nvarchar" MaxLength="500" />
+          <Property Name="FoodGroup" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FoodIdentifier" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FoodCode" Type="nvarchar" MaxLength="500" />
+          <Property Name="FoodOrigin" Type="nvarchar" MaxLength="500" />
+          <Property Name="FoodName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="FoodAnalyzed" Type="nvarchar" MaxLength="500" />
+          <Property Name="StudyObjective" Type="nvarchar" MaxLength="4000" />
+          <Property Name="SamplingPlan" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AnalyticalTechnique" Type="nvarchar" MaxLength="2000" />
+          <Property Name="QualityAssurance" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LOD" Type="nvarchar" MaxLength="100" />
+          <Property Name="LODUnit" Type="nvarchar" MaxLength="500" />
+          <Property Name="LOQ" Type="nvarchar" MaxLength="100" />
+          <Property Name="LOQUnit" Type="nvarchar" MaxLength="500" />
+          <Property Name="Recovery" Type="nvarchar" MaxLength="128" />
+          <Property Name="Concentration" Type="nvarchar" MaxLength="500" />
+          <Property Name="ConcentrationRangeMax" Type="nvarchar" MaxLength="255" />
+          <Property Name="Average" Type="nvarchar" MaxLength="128" />
+          <Property Name="Median" Type="nvarchar" MaxLength="10" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="128" />
+          <Property Name="RSD" Type="nvarchar" MaxLength="128" />
+          <Property Name="SamplesBelow" Type="nvarchar" MaxLength="128" />
+          <Property Name="IndividualSampleAverageResults" Type="nvarchar" MaxLength="255" />
+          <Property Name="Referece" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsValueExists" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'arabcodex.dbo.Vw_GetRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="IsAcive" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="BackgroundColor" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsAcive" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="BackgroundColor" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'arabcodex.dbo.Vw_GetUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Vw_GetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="BackgroundColor" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="255" />
+          <Property Name="CountryName" Type="varchar" MaxLength="128" />
+          <Property Name="Status" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="BackgroundColor" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <Function Name="Sp_AddUpdateCodexMinning" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Year" Type="nvarchar" Mode="In" />
+          <Parameter Name="Country" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodCategory" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contaminant" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodGroup" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodIdentifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodOrigin" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodName" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodAnalyzed" Type="nvarchar" Mode="In" />
+          <Parameter Name="StudyObjective" Type="nvarchar" Mode="In" />
+          <Parameter Name="SamplingPlan" Type="nvarchar" Mode="In" />
+          <Parameter Name="AnalyticalTechnique" Type="nvarchar" Mode="In" />
+          <Parameter Name="QualityAssurance" Type="nvarchar" Mode="In" />
+          <Parameter Name="LOD" Type="nvarchar" Mode="In" />
+          <Parameter Name="LODUnit" Type="nvarchar" Mode="In" />
+          <Parameter Name="LOQ" Type="nvarchar" Mode="In" />
+          <Parameter Name="LOQUnit" Type="nvarchar" Mode="In" />
+          <Parameter Name="Recovery" Type="decimal" Mode="In" />
+          <Parameter Name="Concentration" Type="nvarchar" Mode="In" />
+          <Parameter Name="ConcentrationRangeMax" Type="nvarchar" Mode="In" />
+          <Parameter Name="Average" Type="nvarchar" Mode="In" />
+          <Parameter Name="Median" Type="nvarchar" Mode="In" />
+          <Parameter Name="Unit" Type="nvarchar" Mode="In" />
+          <Parameter Name="RSD" Type="nvarchar" Mode="In" />
+          <Parameter Name="SamplesBelow" Type="nvarchar" Mode="In" />
+          <Parameter Name="IndividualSampleAverageResults" Type="nvarchar" Mode="In" />
+          <Parameter Name="Referece" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="CreatedBy" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Sp_AddUpdateLookupParameter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="LookupKey" Type="nvarchar" Mode="In" />
+          <Parameter Name="LookupValue" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Sp_AddUpdateMinning" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Sp_AddUpdateRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Sp_AddUpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="FullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="CreatedBy" Type="int" Mode="In" />
+          <Parameter Name="CountryId" Type="int" Mode="In" />
+          <Parameter Name="Organization" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsUserRegistration" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Sp_AddUpdateUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CheckUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_GetAnalyticsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetMininngData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PageNumber" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="OrderBy" Type="varchar" Mode="In" />
+          <Parameter Name="SearchYear" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_GetMininngDataNew" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PageNumber" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="Year" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodCategory" Type="nvarchar" Mode="In" />
+          <Parameter Name="Country" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contaminant" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodGroup" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodIdentifier" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodOrigin" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodName" Type="nvarchar" Mode="In" />
+          <Parameter Name="FoodAnalyzed" Type="nvarchar" Mode="In" />
+          <Parameter Name="StudyObjective" Type="nvarchar" Mode="In" />
+          <Parameter Name="SamplingPlan" Type="nvarchar" Mode="In" />
+          <Parameter Name="AnalyticalTechnique" Type="nvarchar" Mode="In" />
+          <Parameter Name="QualityAssurance" Type="nvarchar" Mode="In" />
+          <Parameter Name="LOD" Type="nvarchar" Mode="In" />
+          <Parameter Name="LODUnit" Type="nvarchar" Mode="In" />
+          <Parameter Name="LOQ" Type="nvarchar" Mode="In" />
+          <Parameter Name="LOQUnit" Type="nvarchar" Mode="In" />
+          <Parameter Name="Recovery" Type="nvarchar" Mode="In" />
+          <Parameter Name="Concentration" Type="nvarchar" Mode="In" />
+          <Parameter Name="ConcentrationRangeMax" Type="nvarchar" Mode="In" />
+          <Parameter Name="Average" Type="nvarchar" Mode="In" />
+          <Parameter Name="Median" Type="nvarchar" Mode="In" />
+          <Parameter Name="Unit" Type="nvarchar" Mode="In" />
+          <Parameter Name="RSD" Type="nvarchar" Mode="In" />
+          <Parameter Name="SamplesBelow" Type="nvarchar" Mode="In" />
+          <Parameter Name="IndividualSampleAverageResults" Type="nvarchar" Mode="In" />
+          <Parameter Name="Referece" Type="nvarchar" Mode="In" />
+          <Parameter Name="OrderBy" Type="varchar" Mode="In" />
+          <Parameter Name="SearchYear" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_GetUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ValidateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="CodexMinningModelStoreContainer">
+          <EntitySet Name="Download" EntityType="Self.Download" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LookupMaster" EntityType="Self.LookupMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LookupParameter" EntityType="Self.LookupParameter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MinningTable" EntityType="Self.MinningTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ErrorLog].[ERROR_NUMBER] AS [ERROR_NUMBER], 
+    [ErrorLog].[ERROR_SEVERITY] AS [ERROR_SEVERITY], 
+    [ErrorLog].[ERROR_STATE] AS [ERROR_STATE], 
+    [ErrorLog].[ERROR_PROCEDURE] AS [ERROR_PROCEDURE], 
+    [ErrorLog].[ERROR_LINE] AS [ERROR_LINE], 
+    [ErrorLog].[ERROR_MESSAGE] AS [ERROR_MESSAGE], 
+    [ErrorLog].[addedon] AS [addedon], 
+    [ErrorLog].[Process] AS [Process]
+    FROM [dbo].[ErrorLog] AS [ErrorLog]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_Get_SA_Results" EntityType="Self.Vw_Get_SA_Results" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_Get_SA_Results].[Id] AS [Id], 
+    [Vw_Get_SA_Results].[TypeName] AS [TypeName], 
+    [Vw_Get_SA_Results].[LookupKey] AS [LookupKey], 
+    [Vw_Get_SA_Results].[LookupValue] AS [LookupValue], 
+    [Vw_Get_SA_Results].[IsActive] AS [IsActive], 
+    [Vw_Get_SA_Results].[Status] AS [Status], 
+    [Vw_Get_SA_Results].[BackgroundColor] AS [BackgroundColor], 
+    [Vw_Get_SA_Results].[TypeId] AS [TypeId]
+    FROM [dbo].[Vw_Get_SA_Results] AS [Vw_Get_SA_Results]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetCountries" EntityType="Self.Vw_GetCountries" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetCountries].[Id] AS [Id], 
+    [Vw_GetCountries].[Name] AS [Name]
+    FROM [dbo].[Vw_GetCountries] AS [Vw_GetCountries]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetLookupParameter" EntityType="Self.Vw_GetLookupParameter" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetLookupParameter].[Id] AS [Id], 
+    [Vw_GetLookupParameter].[TypeName] AS [TypeName], 
+    [Vw_GetLookupParameter].[LookupKey] AS [LookupKey], 
+    [Vw_GetLookupParameter].[LookupValue] AS [LookupValue], 
+    [Vw_GetLookupParameter].[IsActive] AS [IsActive], 
+    [Vw_GetLookupParameter].[Status] AS [Status], 
+    [Vw_GetLookupParameter].[BackgroundColor] AS [BackgroundColor], 
+    [Vw_GetLookupParameter].[TypeId] AS [TypeId]
+    FROM [dbo].[Vw_GetLookupParameter] AS [Vw_GetLookupParameter]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetMinnigTable" EntityType="Self.Vw_GetMinnigTable" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetMinnigTable].[Id] AS [Id], 
+    [Vw_GetMinnigTable].[Year] AS [Year], 
+    [Vw_GetMinnigTable].[Country] AS [Country], 
+    [Vw_GetMinnigTable].[FoodCategory] AS [FoodCategory], 
+    [Vw_GetMinnigTable].[Contaminant] AS [Contaminant], 
+    [Vw_GetMinnigTable].[FoodGroup] AS [FoodGroup], 
+    [Vw_GetMinnigTable].[FoodIdentifier] AS [FoodIdentifier], 
+    [Vw_GetMinnigTable].[FoodCode] AS [FoodCode], 
+    [Vw_GetMinnigTable].[FoodOrigin] AS [FoodOrigin], 
+    [Vw_GetMinnigTable].[FoodName] AS [FoodName], 
+    [Vw_GetMinnigTable].[FoodAnalyzed] AS [FoodAnalyzed], 
+    [Vw_GetMinnigTable].[StudyObjective] AS [StudyObjective], 
+    [Vw_GetMinnigTable].[SamplingPlan] AS [SamplingPlan], 
+    [Vw_GetMinnigTable].[AnalyticalTechnique] AS [AnalyticalTechnique], 
+    [Vw_GetMinnigTable].[QualityAssurance] AS [QualityAssurance], 
+    [Vw_GetMinnigTable].[LOD] AS [LOD], 
+    [Vw_GetMinnigTable].[LODUnit] AS [LODUnit], 
+    [Vw_GetMinnigTable].[LOQ] AS [LOQ], 
+    [Vw_GetMinnigTable].[LOQUnit] AS [LOQUnit], 
+    [Vw_GetMinnigTable].[Recovery] AS [Recovery], 
+    [Vw_GetMinnigTable].[Concentration] AS [Concentration], 
+    [Vw_GetMinnigTable].[ConcentrationRangeMax] AS [ConcentrationRangeMax], 
+    [Vw_GetMinnigTable].[Average] AS [Average], 
+    [Vw_GetMinnigTable].[Median] AS [Median], 
+    [Vw_GetMinnigTable].[Unit] AS [Unit], 
+    [Vw_GetMinnigTable].[RSD] AS [RSD], 
+    [Vw_GetMinnigTable].[SamplesBelow] AS [SamplesBelow], 
+    [Vw_GetMinnigTable].[IndividualSampleAverageResults] AS [IndividualSampleAverageResults], 
+    [Vw_GetMinnigTable].[Referece] AS [Referece], 
+    [Vw_GetMinnigTable].[CreatedOn] AS [CreatedOn], 
+    [Vw_GetMinnigTable].[CreatedBy] AS [CreatedBy], 
+    [Vw_GetMinnigTable].[ModifiedOn] AS [ModifiedOn], 
+    [Vw_GetMinnigTable].[ModifiedBy] AS [ModifiedBy], 
+    [Vw_GetMinnigTable].[IsValueExists] AS [IsValueExists]
+    FROM [dbo].[Vw_GetMinnigTable] AS [Vw_GetMinnigTable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetRoles" EntityType="Self.Vw_GetRoles" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetRoles].[Id] AS [Id], 
+    [Vw_GetRoles].[Name] AS [Name], 
+    [Vw_GetRoles].[IsAcive] AS [IsAcive], 
+    [Vw_GetRoles].[Status] AS [Status], 
+    [Vw_GetRoles].[BackgroundColor] AS [BackgroundColor]
+    FROM [dbo].[Vw_GetRoles] AS [Vw_GetRoles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Vw_GetUsers" EntityType="Self.Vw_GetUsers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Vw_GetUsers].[Id] AS [Id], 
+    [Vw_GetUsers].[UserName] AS [UserName], 
+    [Vw_GetUsers].[Password] AS [Password], 
+    [Vw_GetUsers].[FullName] AS [FullName], 
+    [Vw_GetUsers].[Email] AS [Email], 
+    [Vw_GetUsers].[Phone] AS [Phone], 
+    [Vw_GetUsers].[IsActive] AS [IsActive], 
+    [Vw_GetUsers].[CountryId] AS [CountryId], 
+    [Vw_GetUsers].[Organization] AS [Organization], 
+    [Vw_GetUsers].[CountryName] AS [CountryName], 
+    [Vw_GetUsers].[Status] AS [Status], 
+    [Vw_GetUsers].[BackgroundColor] AS [BackgroundColor]
+    FROM [dbo].[Vw_GetUsers] AS [Vw_GetUsers]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CodexMinningModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CodexMinningEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LookupParameters" EntityType="CodexMinningModel.LookupParameter" />
+          <EntitySet Name="Roles" EntityType="CodexMinningModel.Role" />
+          <EntitySet Name="UserRoles" EntityType="CodexMinningModel.UserRole" />
+          <EntitySet Name="ErrorLogs" EntityType="CodexMinningModel.ErrorLog" />
+          <EntitySet Name="Vw_GetRoles" EntityType="CodexMinningModel.Vw_GetRoles" />
+          <FunctionImport Name="Sp_AddUpdateLookupParameter" ReturnType="Collection(CodexMinningModel.Sp_AddUpdateLookupParameter_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+            <Parameter Name="LookupKey" Mode="In" Type="String" />
+            <Parameter Name="LookupValue" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_AddUpdateRoles" ReturnType="Collection(CodexMinningModel.Sp_AddUpdateRoles_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="Sp_AddUpdateUserRoles" ReturnType="Collection(CodexMinningModel.Sp_AddUpdateUserRoles_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetUserRoles" ReturnType="Collection(CodexMinningModel.SP_GetUserRoles_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Downloads" EntityType="CodexMinningModel.Download" />
+          <FunctionImport Name="SP_CheckUserRoles" ReturnType="Collection(CodexMinningModel.SP_CheckUserRoles_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="LookupMasters" EntityType="CodexMinningModel.LookupMaster" />
+          <EntitySet Name="Vw_GetLookupParameter" EntityType="CodexMinningModel.Vw_GetLookupParameter" />
+          <EntitySet Name="Vw_GetCountries" EntityType="CodexMinningModel.Vw_GetCountries" />
+          <EntitySet Name="Vw_GetUsers" EntityType="CodexMinningModel.Vw_GetUsers" />
+          <FunctionImport Name="Sp_AddUpdateUser" ReturnType="Collection(CodexMinningModel.Sp_AddUpdateUser_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="FullName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+            <Parameter Name="CountryId" Mode="In" Type="Int32" />
+            <Parameter Name="Organization" Mode="In" Type="String" />
+            <Parameter Name="IsUserRegistration" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <EntitySet Name="Users" EntityType="CodexMinningModel.User" />
+          <FunctionImport Name="SP_ValidateUser" ReturnType="Collection(CodexMinningModel.SP_ValidateUser_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetAnalyticsDetails" ReturnType="Collection(String)" />
+          <EntitySet Name="Vw_Get_SA_Results" EntityType="CodexMinningModel.Vw_Get_SA_Results" />
+          <FunctionImport Name="Sp_AddUpdateMinning" />
+          <FunctionImport Name="SP_GetMininngData" ReturnType="Collection(CodexMinningModel.SP_GetMininngData_Result)">
+            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="OrderBy" Mode="In" Type="String" />
+            <Parameter Name="SearchYear" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="MinningTables" EntityType="CodexMinningModel.MinningTable" />
+          <EntitySet Name="Vw_GetMinnigTable" EntityType="CodexMinningModel.Vw_GetMinnigTable" />
+          <FunctionImport Name="Sp_AddUpdateCodexMinning" ReturnType="Collection(CodexMinningModel.Sp_AddUpdateCodexMinning_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="FoodCategory" Mode="In" Type="String" />
+            <Parameter Name="Contaminant" Mode="In" Type="String" />
+            <Parameter Name="FoodGroup" Mode="In" Type="String" />
+            <Parameter Name="FoodIdentifier" Mode="In" Type="String" />
+            <Parameter Name="FoodCode" Mode="In" Type="String" />
+            <Parameter Name="FoodOrigin" Mode="In" Type="String" />
+            <Parameter Name="FoodName" Mode="In" Type="String" />
+            <Parameter Name="FoodAnalyzed" Mode="In" Type="String" />
+            <Parameter Name="StudyObjective" Mode="In" Type="String" />
+            <Parameter Name="SamplingPlan" Mode="In" Type="String" />
+            <Parameter Name="AnalyticalTechnique" Mode="In" Type="String" />
+            <Parameter Name="QualityAssurance" Mode="In" Type="String" />
+            <Parameter Name="LOD" Mode="In" Type="String" />
+            <Parameter Name="LODUnit" Mode="In" Type="String" />
+            <Parameter Name="LOQ" Mode="In" Type="String" />
+            <Parameter Name="LOQUnit" Mode="In" Type="String" />
+            <Parameter Name="Recovery" Mode="In" Type="Decimal" />
+            <Parameter Name="Concentration" Mode="In" Type="String" />
+            <Parameter Name="ConcentrationRangeMax" Mode="In" Type="String" />
+            <Parameter Name="Average" Mode="In" Type="String" />
+            <Parameter Name="Median" Mode="In" Type="String" />
+            <Parameter Name="Unit" Mode="In" Type="String" />
+            <Parameter Name="RSD" Mode="In" Type="String" />
+            <Parameter Name="SamplesBelow" Mode="In" Type="String" />
+            <Parameter Name="IndividualSampleAverageResults" Mode="In" Type="String" />
+            <Parameter Name="Referece" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetMininngDataNew" ReturnType="Collection(CodexMinningModel.SP_GetMininngDataNew_Result)">
+            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="String" />
+            <Parameter Name="FoodCategory" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="Contaminant" Mode="In" Type="String" />
+            <Parameter Name="FoodGroup" Mode="In" Type="String" />
+            <Parameter Name="FoodIdentifier" Mode="In" Type="String" />
+            <Parameter Name="FoodCode" Mode="In" Type="String" />
+            <Parameter Name="FoodOrigin" Mode="In" Type="String" />
+            <Parameter Name="FoodName" Mode="In" Type="String" />
+            <Parameter Name="FoodAnalyzed" Mode="In" Type="String" />
+            <Parameter Name="StudyObjective" Mode="In" Type="String" />
+            <Parameter Name="SamplingPlan" Mode="In" Type="String" />
+            <Parameter Name="AnalyticalTechnique" Mode="In" Type="String" />
+            <Parameter Name="QualityAssurance" Mode="In" Type="String" />
+            <Parameter Name="LOD" Mode="In" Type="String" />
+            <Parameter Name="LODUnit" Mode="In" Type="String" />
+            <Parameter Name="LOQ" Mode="In" Type="String" />
+            <Parameter Name="LOQUnit" Mode="In" Type="String" />
+            <Parameter Name="Recovery" Mode="In" Type="String" />
+            <Parameter Name="Concentration" Mode="In" Type="String" />
+            <Parameter Name="ConcentrationRangeMax" Mode="In" Type="String" />
+            <Parameter Name="Average" Mode="In" Type="String" />
+            <Parameter Name="Median" Mode="In" Type="String" />
+            <Parameter Name="Unit" Mode="In" Type="String" />
+            <Parameter Name="RSD" Mode="In" Type="String" />
+            <Parameter Name="SamplesBelow" Mode="In" Type="String" />
+            <Parameter Name="IndividualSampleAverageResults" Mode="In" Type="String" />
+            <Parameter Name="Referece" Mode="In" Type="String" />
+            <Parameter Name="OrderBy" Mode="In" Type="String" />
+            <Parameter Name="SearchYear" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="LookupParameter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LookupKey" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LookupValue" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsAcive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="addedon" />
+          </Key>
+          <Property Name="ERROR_NUMBER" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ERROR_SEVERITY" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ERROR_STATE" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ERROR_PROCEDURE" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ERROR_LINE" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ERROR_MESSAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="addedon" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Process" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_GetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="IsAcive" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="BackgroundColor" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsAcive" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="BackgroundColor" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="Sp_AddUpdateLookupParameter_Result">
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Message" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Sp_AddUpdateRoles_Result">
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Message" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Sp_AddUpdateUserRoles_Result">
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Message" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_GetUserRoles_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="checked" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Download">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Year" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Country_Region" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Contaminant" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FoodGroup" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FoodIdentifier" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FoodCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FoodOrigin" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FoodAnalyzed" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="StudyObjective" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SamplingPlan" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AnalyticalTechnique" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="QualityAssurance" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LOD" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LODUnit" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LOQ" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LOQUnit" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Recovery" Type="Int32" />
+          <Property Name="Concentration" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Average" Type="Int32" />
+          <Property Name="Median" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RSD" Type="Int32" />
+          <Property Name="SamplesBelow" Type="Int32" />
+          <Property Name="Referece" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <ComplexType Name="SP_CheckUserRoles_Result">
+          <Property Type="Int32" Name="Admin" Nullable="true" />
+          <Property Type="Int32" Name="Write" Nullable="true" />
+          <Property Type="Int32" Name="Read" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="LookupMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_GetLookupParameter">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="LookupKey" />
+            <PropertyRef Name="LookupValue" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="BackgroundColor" />
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LookupKey" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LookupValue" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="BackgroundColor" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vw_GetCountries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Vw_GetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="BackgroundColor" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="Organization" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CountryName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="BackgroundColor" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="Sp_AddUpdateUser_Result">
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Message" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="Organization" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="SP_ValidateUser_Result">
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Message" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Vw_Get_SA_Results">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="LookupKey" />
+            <PropertyRef Name="LookupValue" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="BackgroundColor" />
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LookupKey" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LookupValue" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="BackgroundColor" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="SP_GetMininngData_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Year" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Contaminant" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodGroup" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodIdentifier" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodCode" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodOrigin" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodAnalyzed" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="StudyObjective" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="SamplingPlan" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="AnalyticalTechnique" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QualityAssurance" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LOD" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LODUnit" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LOQ" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LOQUnit" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Recovery" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Concentration" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Average" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Median" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RSD" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="SamplesBelow" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Referece" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+          <Property Type="DateTime" Name="ModifiedOn" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ModifiedBy" Nullable="true" />
+          <Property Type="Int32" Name="TotalRecords" Nullable="true" />
+          <Property Type="Int32" Name="IsValueExists" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="MinningTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FoodCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Contaminant" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FoodGroup" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FoodIdentifier" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FoodCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FoodOrigin" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FoodAnalyzed" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StudyObjective" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SamplingPlan" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AnalyticalTechnique" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="QualityAssurance" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LOD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LODUnit" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LOQ" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LOQUnit" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Recovery" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Concentration" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Average" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Median" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RSD" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SamplesBelow" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Referece" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="FoodName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ConcentrationRangeMax" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IndividualSampleAverageResults" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Vw_GetMinnigTable">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IsValueExists" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FoodCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Contaminant" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FoodGroup" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FoodIdentifier" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FoodCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FoodOrigin" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FoodName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FoodAnalyzed" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StudyObjective" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="SamplingPlan" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AnalyticalTechnique" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="QualityAssurance" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LOD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LODUnit" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LOQ" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LOQUnit" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Recovery" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Concentration" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ConcentrationRangeMax" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Average" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Median" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RSD" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SamplesBelow" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IndividualSampleAverageResults" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Referece" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsValueExists" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="Sp_AddUpdateCodexMinning_Result">
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Message" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_GetMininngDataNew_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Year" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodCategory" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Contaminant" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodGroup" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="FoodIdentifier" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="FoodCode" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodOrigin" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodName" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FoodAnalyzed" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="StudyObjective" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="SamplingPlan" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="AnalyticalTechnique" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="QualityAssurance" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="LOD" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LODUnit" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LOQ" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LOQUnit" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Recovery" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Concentration" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="ConcentrationRangeMax" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="Average" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Median" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Unit" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="RSD" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="SamplesBelow" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="IndividualSampleAverageResults" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Referece" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+          <Property Type="DateTime" Name="ModifiedOn" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ModifiedBy" Nullable="true" />
+          <Property Type="Int32" Name="TotalRecords" Nullable="true" />
+          <Property Type="Int32" Name="IsValueExists" Nullable="false" />
+          <Property Type="String" Name="HrefReferece" Nullable="true" MaxLength="2000" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodexMinningModelStoreContainer" CdmEntityContainer="CodexMinningEntities">
+          <EntitySetMapping Name="LookupParameters">
+            <EntityTypeMapping TypeName="CodexMinningModel.LookupParameter">
+              <MappingFragment StoreEntitySet="LookupParameter">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LookupValue" ColumnName="LookupValue" />
+                <ScalarProperty Name="LookupKey" ColumnName="LookupKey" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="CodexMinningModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IsAcive" ColumnName="IsAcive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="CodexMinningModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="CodexMinningModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLog">
+                <ScalarProperty Name="Process" ColumnName="Process" />
+                <ScalarProperty Name="addedon" ColumnName="addedon" />
+                <ScalarProperty Name="ERROR_MESSAGE" ColumnName="ERROR_MESSAGE" />
+                <ScalarProperty Name="ERROR_LINE" ColumnName="ERROR_LINE" />
+                <ScalarProperty Name="ERROR_PROCEDURE" ColumnName="ERROR_PROCEDURE" />
+                <ScalarProperty Name="ERROR_STATE" ColumnName="ERROR_STATE" />
+                <ScalarProperty Name="ERROR_SEVERITY" ColumnName="ERROR_SEVERITY" />
+                <ScalarProperty Name="ERROR_NUMBER" ColumnName="ERROR_NUMBER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetRoles">
+            <EntityTypeMapping TypeName="CodexMinningModel.Vw_GetRoles">
+              <MappingFragment StoreEntitySet="Vw_GetRoles">
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsAcive" ColumnName="IsAcive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Sp_AddUpdateLookupParameter" FunctionName="CodexMinningModel.Store.Sp_AddUpdateLookupParameter">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.Sp_AddUpdateLookupParameter_Result">
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Sp_AddUpdateRoles" FunctionName="CodexMinningModel.Store.Sp_AddUpdateRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.Sp_AddUpdateRoles_Result">
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Sp_AddUpdateUserRoles" FunctionName="CodexMinningModel.Store.Sp_AddUpdateUserRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.Sp_AddUpdateUserRoles_Result">
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetUserRoles" FunctionName="CodexMinningModel.Store.SP_GetUserRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.SP_GetUserRoles_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="checked" ColumnName="checked" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Downloads">
+            <EntityTypeMapping TypeName="CodexMinningModel.Download">
+              <MappingFragment StoreEntitySet="Download">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Referece" ColumnName="Referece" />
+                <ScalarProperty Name="SamplesBelow" ColumnName="SamplesBelow" />
+                <ScalarProperty Name="RSD" ColumnName="RSD" />
+                <ScalarProperty Name="Median" ColumnName="Median" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
+                <ScalarProperty Name="Concentration" ColumnName="Concentration" />
+                <ScalarProperty Name="Recovery" ColumnName="Recovery" />
+                <ScalarProperty Name="LOQUnit" ColumnName="LOQUnit" />
+                <ScalarProperty Name="LOQ" ColumnName="LOQ" />
+                <ScalarProperty Name="LODUnit" ColumnName="LODUnit" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="AnalyticalTechnique" ColumnName="AnalyticalTechnique" />
+                <ScalarProperty Name="SamplingPlan" ColumnName="SamplingPlan" />
+                <ScalarProperty Name="StudyObjective" ColumnName="StudyObjective" />
+                <ScalarProperty Name="FoodAnalyzed" ColumnName="FoodAnalyzed" />
+                <ScalarProperty Name="FoodOrigin" ColumnName="FoodOrigin" />
+                <ScalarProperty Name="FoodCode" ColumnName="FoodCode" />
+                <ScalarProperty Name="FoodIdentifier" ColumnName="FoodIdentifier" />
+                <ScalarProperty Name="FoodGroup" ColumnName="FoodGroup" />
+                <ScalarProperty Name="Contaminant" ColumnName="Contaminant" />
+                <ScalarProperty Name="Country_Region" ColumnName="Country/Region" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_CheckUserRoles" FunctionName="CodexMinningModel.Store.SP_CheckUserRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.SP_CheckUserRoles_Result">
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Write" ColumnName="Write" />
+                <ScalarProperty Name="Read" ColumnName="Read" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="LookupMasters">
+            <EntityTypeMapping TypeName="CodexMinningModel.LookupMaster">
+              <MappingFragment StoreEntitySet="LookupMaster">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetLookupParameter">
+            <EntityTypeMapping TypeName="CodexMinningModel.Vw_GetLookupParameter">
+              <MappingFragment StoreEntitySet="Vw_GetLookupParameter">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LookupValue" ColumnName="LookupValue" />
+                <ScalarProperty Name="LookupKey" ColumnName="LookupKey" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetCountries">
+            <EntityTypeMapping TypeName="CodexMinningModel.Vw_GetCountries">
+              <MappingFragment StoreEntitySet="Vw_GetCountries">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetUsers">
+            <EntityTypeMapping TypeName="CodexMinningModel.Vw_GetUsers">
+              <MappingFragment StoreEntitySet="Vw_GetUsers">
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Sp_AddUpdateUser" FunctionName="CodexMinningModel.Store.Sp_AddUpdateUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.Sp_AddUpdateUser_Result">
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CodexMinningModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ValidateUser" FunctionName="CodexMinningModel.Store.SP_ValidateUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.SP_ValidateUser_Result">
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetAnalyticsDetails" FunctionName="CodexMinningModel.Store.SP_GetAnalyticsDetails" />
+          <EntitySetMapping Name="Vw_Get_SA_Results">
+            <EntityTypeMapping TypeName="CodexMinningModel.Vw_Get_SA_Results">
+              <MappingFragment StoreEntitySet="Vw_Get_SA_Results">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LookupValue" ColumnName="LookupValue" />
+                <ScalarProperty Name="LookupKey" ColumnName="LookupKey" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Sp_AddUpdateMinning" FunctionName="CodexMinningModel.Store.Sp_AddUpdateMinning" />
+          <FunctionImportMapping FunctionImportName="SP_GetMininngData" FunctionName="CodexMinningModel.Store.SP_GetMininngData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.SP_GetMininngData_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Contaminant" ColumnName="Contaminant" />
+                <ScalarProperty Name="FoodGroup" ColumnName="FoodGroup" />
+                <ScalarProperty Name="FoodIdentifier" ColumnName="FoodIdentifier" />
+                <ScalarProperty Name="FoodCode" ColumnName="FoodCode" />
+                <ScalarProperty Name="FoodOrigin" ColumnName="FoodOrigin" />
+                <ScalarProperty Name="FoodAnalyzed" ColumnName="FoodAnalyzed" />
+                <ScalarProperty Name="StudyObjective" ColumnName="StudyObjective" />
+                <ScalarProperty Name="SamplingPlan" ColumnName="SamplingPlan" />
+                <ScalarProperty Name="AnalyticalTechnique" ColumnName="AnalyticalTechnique" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="LODUnit" ColumnName="LODUnit" />
+                <ScalarProperty Name="LOQ" ColumnName="LOQ" />
+                <ScalarProperty Name="LOQUnit" ColumnName="LOQUnit" />
+                <ScalarProperty Name="Recovery" ColumnName="Recovery" />
+                <ScalarProperty Name="Concentration" ColumnName="Concentration" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
+                <ScalarProperty Name="Median" ColumnName="Median" />
+                <ScalarProperty Name="RSD" ColumnName="RSD" />
+                <ScalarProperty Name="SamplesBelow" ColumnName="SamplesBelow" />
+                <ScalarProperty Name="Referece" ColumnName="Referece" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="TotalRecords" ColumnName="TotalRecords" />
+                <ScalarProperty Name="IsValueExists" ColumnName="IsValueExists" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="MinningTables">
+            <EntityTypeMapping TypeName="CodexMinningModel.MinningTable">
+              <MappingFragment StoreEntitySet="MinningTable">
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="IndividualSampleAverageResults" ColumnName="IndividualSampleAverageResults" />
+                <ScalarProperty Name="ConcentrationRangeMax" ColumnName="ConcentrationRangeMax" />
+                <ScalarProperty Name="FoodName" ColumnName="FoodName" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Referece" ColumnName="Referece" />
+                <ScalarProperty Name="SamplesBelow" ColumnName="SamplesBelow" />
+                <ScalarProperty Name="RSD" ColumnName="RSD" />
+                <ScalarProperty Name="Median" ColumnName="Median" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
+                <ScalarProperty Name="Concentration" ColumnName="Concentration" />
+                <ScalarProperty Name="Recovery" ColumnName="Recovery" />
+                <ScalarProperty Name="LOQUnit" ColumnName="LOQUnit" />
+                <ScalarProperty Name="LOQ" ColumnName="LOQ" />
+                <ScalarProperty Name="LODUnit" ColumnName="LODUnit" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="AnalyticalTechnique" ColumnName="AnalyticalTechnique" />
+                <ScalarProperty Name="SamplingPlan" ColumnName="SamplingPlan" />
+                <ScalarProperty Name="StudyObjective" ColumnName="StudyObjective" />
+                <ScalarProperty Name="FoodAnalyzed" ColumnName="FoodAnalyzed" />
+                <ScalarProperty Name="FoodOrigin" ColumnName="FoodOrigin" />
+                <ScalarProperty Name="FoodCode" ColumnName="FoodCode" />
+                <ScalarProperty Name="FoodIdentifier" ColumnName="FoodIdentifier" />
+                <ScalarProperty Name="FoodGroup" ColumnName="FoodGroup" />
+                <ScalarProperty Name="Contaminant" ColumnName="Contaminant" />
+                <ScalarProperty Name="FoodCategory" ColumnName="FoodCategory" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vw_GetMinnigTable">
+            <EntityTypeMapping TypeName="CodexMinningModel.Vw_GetMinnigTable">
+              <MappingFragment StoreEntitySet="Vw_GetMinnigTable">
+                <ScalarProperty Name="IsValueExists" ColumnName="IsValueExists" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Referece" ColumnName="Referece" />
+                <ScalarProperty Name="IndividualSampleAverageResults" ColumnName="IndividualSampleAverageResults" />
+                <ScalarProperty Name="SamplesBelow" ColumnName="SamplesBelow" />
+                <ScalarProperty Name="RSD" ColumnName="RSD" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Median" ColumnName="Median" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
+                <ScalarProperty Name="ConcentrationRangeMax" ColumnName="ConcentrationRangeMax" />
+                <ScalarProperty Name="Concentration" ColumnName="Concentration" />
+                <ScalarProperty Name="Recovery" ColumnName="Recovery" />
+                <ScalarProperty Name="LOQUnit" ColumnName="LOQUnit" />
+                <ScalarProperty Name="LOQ" ColumnName="LOQ" />
+                <ScalarProperty Name="LODUnit" ColumnName="LODUnit" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="AnalyticalTechnique" ColumnName="AnalyticalTechnique" />
+                <ScalarProperty Name="SamplingPlan" ColumnName="SamplingPlan" />
+                <ScalarProperty Name="StudyObjective" ColumnName="StudyObjective" />
+                <ScalarProperty Name="FoodAnalyzed" ColumnName="FoodAnalyzed" />
+                <ScalarProperty Name="FoodName" ColumnName="FoodName" />
+                <ScalarProperty Name="FoodOrigin" ColumnName="FoodOrigin" />
+                <ScalarProperty Name="FoodCode" ColumnName="FoodCode" />
+                <ScalarProperty Name="FoodIdentifier" ColumnName="FoodIdentifier" />
+                <ScalarProperty Name="FoodGroup" ColumnName="FoodGroup" />
+                <ScalarProperty Name="Contaminant" ColumnName="Contaminant" />
+                <ScalarProperty Name="FoodCategory" ColumnName="FoodCategory" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Sp_AddUpdateCodexMinning" FunctionName="CodexMinningModel.Store.Sp_AddUpdateCodexMinning">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.Sp_AddUpdateCodexMinning_Result">
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetMininngDataNew" FunctionName="CodexMinningModel.Store.SP_GetMininngDataNew">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.SP_GetMininngDataNew_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="FoodCategory" ColumnName="FoodCategory" />
+                <ScalarProperty Name="Contaminant" ColumnName="Contaminant" />
+                <ScalarProperty Name="FoodGroup" ColumnName="FoodGroup" />
+                <ScalarProperty Name="FoodIdentifier" ColumnName="FoodIdentifier" />
+                <ScalarProperty Name="FoodCode" ColumnName="FoodCode" />
+                <ScalarProperty Name="FoodOrigin" ColumnName="FoodOrigin" />
+                <ScalarProperty Name="FoodName" ColumnName="FoodName" />
+                <ScalarProperty Name="FoodAnalyzed" ColumnName="FoodAnalyzed" />
+                <ScalarProperty Name="StudyObjective" ColumnName="StudyObjective" />
+                <ScalarProperty Name="SamplingPlan" ColumnName="SamplingPlan" />
+                <ScalarProperty Name="AnalyticalTechnique" ColumnName="AnalyticalTechnique" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="LODUnit" ColumnName="LODUnit" />
+                <ScalarProperty Name="LOQ" ColumnName="LOQ" />
+                <ScalarProperty Name="LOQUnit" ColumnName="LOQUnit" />
+                <ScalarProperty Name="Recovery" ColumnName="Recovery" />
+                <ScalarProperty Name="Concentration" ColumnName="Concentration" />
+                <ScalarProperty Name="ConcentrationRangeMax" ColumnName="ConcentrationRangeMax" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
+                <ScalarProperty Name="Median" ColumnName="Median" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="RSD" ColumnName="RSD" />
+                <ScalarProperty Name="SamplesBelow" ColumnName="SamplesBelow" />
+                <ScalarProperty Name="IndividualSampleAverageResults" ColumnName="IndividualSampleAverageResults" />
+                <ScalarProperty Name="Referece" ColumnName="Referece" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="TotalRecords" ColumnName="TotalRecords" />
+                <ScalarProperty Name="IsValueExists" ColumnName="IsValueExists" />
+                <ScalarProperty Name="HrefReferece" ColumnName="HrefReferece" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

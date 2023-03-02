@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2c543bc0e3c640938c7cef9033cb81a3" Name="Diagram1">
+        <EntityTypeShape EntityType="CodexMinningModel.LookupParameter" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.Role" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.UserRole" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.ErrorLog" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.Vw_GetRoles" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.Download" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.LookupMaster" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.Vw_GetLookupParameter" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.Vw_GetCountries" Width="1.5" PointX="9.375" PointY="8.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.Vw_GetUsers" Width="1.5" PointX="11.375" PointY="5.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.User" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.Vw_Get_SA_Results" Width="1.5" PointX="7.375" PointY="11.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.MinningTable" Width="1.5" PointX="9.375" PointY="11.75" />
+        <EntityTypeShape EntityType="CodexMinningModel.Vw_GetMinnigTable" Width="1.5" PointX="0.75" PointY="11.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

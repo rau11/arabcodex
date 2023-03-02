@@ -1,0 +1,485 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var data = ViewBag.data;
+}
+
+<style>
+    table th {
+        color: white;
+        /*background-color: #1D79A2;*/
+        /*background-color: #7e0d26 !important;*/
+        background-color: #2F5597 !important;
+    }
+
+    /*input {
+        border: 2px solid #1d79a2 !important;
+    }*/
+
+    div.dt-buttons {
+        margin-bottom: 10px;
+    }
+
+
+    .button {
+        position: relative;
+        padding: 8px 16px;
+        background: #009579 !important;
+        border: none;
+        outline: none;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+        .button:active {
+            background: #007a63;
+        }
+
+    .button__text {
+        font: bold 20px "Quicksand", san-serif;
+        color: #ffffff;
+        transition: all 0.2s;
+    }
+
+    .button--loading .button__text {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .button--loading::after {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        border: 4px solid transparent;
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: button-loading-spinner 1s ease infinite;
+    }
+
+    @@keyframes button-loading-spinner {
+        from {
+            transform: rotate(0turn);
+        }
+
+        to {
+            transform: rotate(1turn);
+        }
+    }
+</style>
+<!-- Begin Page Content -->
+<div class="container-fluid" ng-controller="masterconfigurationController as vm">
+    @*<div class="row clsBreadcrum">
+        <div class="col-lg-12" style="margin-top: 10px;">
+            @if (data != null)
+            {
+                if (data.Admin == 1 || data.Write == 1)
+                {
+                    <h4>Master Configuration</h4>
+                }
+                else if (data.Admin != 1 && data.Write != 1)
+                {
+                    <h4>You don't have permission to view this page.</h4>
+                }
+            }
+           
+        </div>
+    </div>*@
+    <br />
+    <!-- Content Row -->
+    <div class="row" style="display:none;">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-12 col-md-12 mb-12">
+            <div class="m-content">
+
+                <div class="row">
+                    <div class="col-lg-6 m--align-right">
+                        <button type="button" style="float: right;" ng-click="addEdit(0)" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> <span translate="">Add User</span></button>
+                    </div>
+                    <div class="col-lg-6 m--align-right">
+                        <button type="button" style="float: right;" ng-click="addEditRole(0)" class="btn btn-danger"><i class="fa fa-plus" aria-hidden="true"></i> <span translate="">Add Role</span></button>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-md-12 well" style="padding-left:2px;padding-right:2px;overflow:scroll;">
+                            @*<table datatable="" dt-instance="vm.dtDataInstance" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" dt-column-defs="vm.dtColumnDefs" class="table table-striped- table-bordered table-hover table-checkable" id="datadetailsdiv" width="100%"></table>*@
+                            <table class="table table-striped- table-bordered table-hover table-checkable" id="datadetails1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>User Name</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in dataList">
+                                        <td>{{item.UserName}}</td>
+                                        <td>{{item.FullName}}</td>
+                                        <td>{{item.Email}}</td>
+                                        <td>{{item.Phone}}</td>
+                                        <td>
+                                            <span style="background-color: {{item.BackgroundColor}};padding: 5px;border-radius: 8px;color: white;">
+                                                {{item.Status}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a ng-click="addEdit(item.Id)" uib-tooltip="Edit" class="btn btn-secondry m-btn m-btn--icon m-btn--icon-only btn_edit_data">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (data.Admin == 1 || data.Write == 1)
+    {
+        @*<div class="row" ng-if="UserRoles.Admin || UserRoles.Write">*@
+        <div class="row">
+            <div class="col-md-12">
+
+                <section id="tabs" class="project-tab">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav>
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-home-tab" ng-click="preventToShowHashInUrl($event);" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Users Master</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" ng-click="preventToShowHashInUrl($event);"  data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Roles Master</a>
+                                    <a class="nav-item nav-link" id="nav-lookup-tab" ng-click="preventToShowHashInUrl($event);"  data-toggle="tab" href="#nav-lookup" role="tab" aria-controls="nav-lookup" aria-selected="false">Lookup Master</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-lg-6 m--align-right">
+                                        </div>
+                                        <div class="col-lg-6 m--align-right">
+                                            <button type="button" style="float: right;" ng-click="addEdit(0)" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> <span translate="">Add User</span></button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-md-12 well" style="padding-left:2px;padding-right:2px;overflow:scroll;">
+                                                @*<table datatable="" dt-instance="vm.dtDataInstance" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" dt-column-defs="vm.dtColumnDefs" class="table table-striped- table-bordered table-hover table-checkable" id="datadetailsdiv" width="100%"></table>*@
+                                                <table class="table table-striped- table-bordered table-hover table-checkable" id="datadetails" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>User Name</th>
+                                                            <th>Full Name</th>
+                                                            <th>Email</th>
+                                                            @*<th>Phone</th>*@
+                                                            <th>Country</th>
+                                                            <th>Organization</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in dataList">
+                                                            <td>{{item.UserName}}</td>
+                                                            <td>{{item.FullName}}</td>
+                                                            <td>{{item.Email}}</td>
+                                                            @*<td>{{item.Phone}}</td>*@
+                                                            <td>{{item.CountryName}}</td>
+                                                            <td>{{item.Organization}}</td>
+                                                            <td>
+                                                                <span style="background-color: {{item.BackgroundColor}};padding: 5px;border-radius: 8px;color: white;">
+                                                                    {{item.Status}}
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <a ng-click="addEdit(item.Id)" uib-tooltip="Edit" class="btn btn-secondry m-btn m-btn--icon m-btn--icon-only btn_edit_data">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-lg-6 m--align-right">
+                                        </div>
+                                        <div class="col-lg-6 m--align-right">
+                                            <button type="button" style="float: right;" ng-click="addEditRole(0)" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> <span translate="">Add Role</span></button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-md-12 well" style="padding-left:2px;padding-right:2px;overflow:scroll;">
+                                                @*<table datatable="" dt-instance="vm.dtDataInstance" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" dt-column-defs="vm.dtColumnDefs" class="table table-striped- table-bordered table-hover table-checkable" id="datadetailsdiv" width="100%"></table>*@
+                                                <table class="table table-striped- table-bordered table-hover table-checkable" id="tblRoles" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SNo</th>
+                                                            <th>Name</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in roleList">
+                                                            <td>{{$index+1}}</td>
+                                                            <td>{{item.Name}}</td>
+                                                            <td>
+                                                                <span style="background-color: {{item.BackgroundColor}};padding: 5px;border-radius: 8px;color: white;">
+                                                                    {{item.Status}}
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <a ng-click="addEditRole(item.Id)" uib-tooltip="Edit" class="btn btn-secondry m-btn m-btn--icon m-btn--icon-only btn_edit_data">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-lookup" role="tabpanel" aria-labelledby="nav-lookup-tab">
+                                    <br />
+                                    <br />
+                                    @*<div class="row">
+                                        <div class="col-lg-3">
+                                            <span>Select File  :</span>
+                                            <input class="form-control" style="padding: 2px 20px;" type="file" name="importFile" id="importFile" />
+                                        </div>
+                                        <div class="col-lg-3" style="margin-top: auto;">
+                                            <button type="button" class="button" id="btnUpload" onclick="this.classList.toggle('button--loading')">
+                                                <span class="button__text">Upload File</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-3" style="margin-top: auto;">
+                                            <a href="/Dashboard/DownloadFile" onclick="return confirm('Are you sure, you want to download the file.')" title="Download File" class="btn btn-primary button"> <span class="button__text">Download File</span></a>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />*@
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group m-form__group ">
+                                                <label class="form-control-label">
+                                                    <span translate="">Type</span>:
+                                                </label>
+                                                <div class="controls">
+                                                    @*<ui-select ng-model="searchVm.TypeId" ng-change="getLookUpByTypeId(searchVm.TypeId);"  name="Type" theme="select2" ng-disabled="disabled" class="text-left form-control">*@
+                                                    <ui-select ng-model="searchVm.TypeId" name="Type" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                                        <ui-select-match placeholder="Select Type">{{$select.selected.Name}}</ui-select-match>
+                                                        <ui-select-choices repeat="b.Id as b in TypeList track by $index" refresh-delay="0">
+                                                            <span ng-bind-html="b.Name | highlight: $select.search"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4" style="display:none;">
+                                            <div class="form-group m-form__group ">
+                                                <label class="form-control-label">
+                                                    <span translate="">LookUp</span>:
+                                                </label>
+
+                                                <div class="controls">
+                                                    <ui-select ng-model="searchVm.Id" name="LookUp" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                                        <ui-select-match placeholder="Select Type">{{$select.selected.LookupKey}}</ui-select-match>
+                                                        <ui-select-choices repeat="b.Id as b in LookUpList track by $index" refresh-delay="0">
+                                                            <span ng-bind-html="b.LookupKey | highlight: $select.search"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4" style="margin-top:auto;">
+                                            <div class="form-group m-form__group ">
+                                                <button type="button" ng-click="searchLookUp(searchVm.Id)" class="btn btn-info"><i class="fa fa-search"></i> <span translate="LNG_Search">Search</span></button>
+                                                <button type="button" ng-click="ClearLookUpSearch()" class="btn btn-info margin_right"><i class="fa fa-sync"></i> <span translate="LNG_Clear">Clear</span></button>
+                                                <button type="button" style="float: right;" ng-click="addEditLookUp(0)" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> <span translate="">Add lookup</span></button>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 m--align-right">
+                                        </div>
+                                        <div class="col-lg-6 m--align-right">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-md-12 well" style="padding-left:2px;padding-right:2px;overflow:scroll;">
+                                                @*<table datatable="" dt-instance="vm.dtDataInstance" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" dt-column-defs="vm.dtColumnDefs" class="table table-striped- table-bordered table-hover table-checkable" id="datadetailsdiv" width="100%"></table>*@
+                                                <table class="table table-striped- table-bordered table-hover table-checkable" id="tblLookUp" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>SNo</th>
+                                                            <th>Type</th>
+                                                            <th>LookupKey</th>
+                                                            <th>LookupValue</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in lookUpList">
+                                                            <td>{{$index+1}}</td>
+                                                            <td>{{item.TypeName}}</td>
+                                                            <td>{{item.LookupKey}}</td>
+                                                            <td>{{item.LookupValue}}</td>
+                                                            <td>
+                                                                <span style="background-color: {{item.BackgroundColor}};padding: 5px;border-radius: 8px;color: white;">
+                                                                    {{item.Status}}
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <a ng-click="addEditLookUp(item.Id)" uib-tooltip="Edit" class="btn btn-secondry m-btn m-btn--icon m-btn--icon-only btn_edit_data">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    }
+
+</div>
+
+<!-- /.container-fluid -->
+@section scripts{
+
+    <script src="~/Assets/js/datatables.bundle.min.js"></script>
+
+
+    <script src="~/Scripts/App/masterconfiguration/service.js"></script>
+    <script src="~/Scripts/App/masterconfiguration/masterconfigurationController.js"></script>
+    <script src="~/Scripts/App/masterconfiguration/addEditController.js"></script>
+    <script src="~/Scripts/App/masterconfiguration/addEditRoleController.js"></script>
+    <script src="~/Scripts/App/masterconfiguration/addEditLKPController.js"></script>
+    @*<script src="~/Scripts/App/masterconfiguration/addEditLookupController.js"></script>*@
+
+
+    <script>
+
+        $(document).on("click", "#btnUpload", function () {
+
+            const btn = document.querySelector(".button");
+
+            btn.classList.add("button--loading");
+
+
+            var files = $("#importFile").get(0).files;
+            if (files.length > 0) {
+
+                var extension = files[0].name.substring(files[0].name.lastIndexOf('.') + 1);
+                if (extension == "xlsx" || extension == "xls" || extension == "csv") {
+
+                    if (confirm("Are you sure, you want to upload the file.")) {
+                        var formData = new FormData();
+                        formData.append('importFile', files[0]);
+
+                        $.ajax({
+                            url: '/Dashboard/ImportLookUpFile',
+                            data: formData,
+                            type: 'POST',
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+
+                                if (data.Status === 1) {
+                                    alert(data.Message);
+                                    location.reload();
+                                } else {
+                                    alert(data.Message);
+                                }
+                                btn.classList.remove("button--loading");
+                            }
+                        });
+                    }
+                    else {
+                        btn.classList.remove("button--loading");
+                    }
+                } else {
+                    btn.classList.remove("button--loading");
+                    alert("This file format is not supported.Please upload csv or excel file only.");
+                }
+            }
+            else {
+                btn.classList.remove("button--loading");
+                alert("Please select file.");
+            }
+
+        });
+
+        $(document).on("click", "#btnDownload", function () {
+
+            if (confirm("Are you sure, you want to download the file.")) {
+                $.ajax({
+                    url: '/Dashboard/DownloadLookUpFile',
+                    //data: formData,
+                    type: 'GET',
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+
+
+                    }
+                });
+            }
+
+        });
+
+    </script>
+}

@@ -1,0 +1,523 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arab Codex Minning</title>
+
+
+    <link href="~/CustomTemplate/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!--Mine Css Start-->
+    <link href="~/Assets/css/googlefonts.css" rel="stylesheet" />
+    <link href="~/Assets/css/easyzoom.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/css/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/css/socicon.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/css/flaticon.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/css/line-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/Assets/css/select2.css" rel="stylesheet" />
+    <link href="~/Assets/css/datatables.bundle.css" rel="stylesheet" />
+    <link href="~/Assets/css/chartist.min.css" rel="stylesheet" />
+
+    <link href="~/Assets/plugin/angular-ui-select/select.css" rel="stylesheet" />
+    <link href="~/Assets/plugin/angular-ui-select/select2.css" rel="stylesheet" />
+    <link href="~/Assets/plugin/angularjs-toaster/toaster.css" rel="stylesheet" />
+
+    <!--Fancybox Start-->
+    <link href="~/Assets/plugin/fancybox/css/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/Assets/plugin/fancybox/css/jquery.fancybox-thumbs.css" rel="stylesheet" />
+    <link href="~/Assets/plugin/fancybox/css/jquery.fancybox-buttons.css" rel="stylesheet" />
+    <!--Fancybox End-->
+    <!--Custom DatePicker-->
+    <link href="~/Assets/plugin/datepicker/angular-datepicker.min.css" rel="stylesheet" />
+
+    <!--Mine Css End-->
+    <!-- Custom styles for this template-->
+    <link href="~/CustomTemplate/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="~/Content/materialize/css/jquery.loadingModal.css" rel="stylesheet" />
+
+
+
+    <style>
+        .menufont {
+            font-size: large;
+        }
+
+        ul, #myUL {
+            list-style-type: none;
+        }
+
+        #myUL {
+            margin: 0;
+            padding: 0;
+        }
+
+        .caret {
+            cursor: pointer;
+            -webkit-user-select: none; /* Safari 3.1+ */
+            -moz-user-select: none; /* Firefox 2+ */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none;
+        }
+
+            .caret::before {
+                content: "\25B6";
+                color: black;
+                display: inline-block;
+                margin-right: 6px;
+            }
+
+        .caret-down::before {
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Safari */
+            ' transform: rotate(90deg);
+        }
+
+        .nested {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .project-tab #tabs {
+            color: black !important;
+        }
+
+        .clsBreadcrum {
+            /*background: #1d79a2 !important;*/
+            /*background: #EC9541 !important;*/
+            background-color: #5B9BD5 !important;
+            color: white !important;
+            padding: 5px !important;
+            border-radius: 10px;
+        }
+
+        .blink-bg {
+            color: #fff;
+            padding: 10px;
+            display: inline-block;
+            border-radius: 5px;
+            animation: blinkingBackground 5s infinite;
+        }
+
+        @@keyframes blinkingBackground {
+            0% {
+                background-color: #10c018;
+            }
+
+            25% {
+                background-color: #1056c0;
+            }
+
+            50% {
+                background-color: #ef0a1a;
+            }
+
+            75% {
+                background-color: #254878;
+            }
+
+            100% {
+                background-color: #04a1d5;
+            }
+        }
+
+        .logo_panel {
+            height: 0px;
+            background: white;
+            /*position: fixed;*/
+            width: 100%;
+            z-index: 99;
+            margin-bottom: 6%;
+        }
+
+        .right_logo {
+            margin: 15px 15px 0 0px;
+            float: right;
+        }
+
+        .left_logo {
+            margin: 15px 0 0 20px;
+            float: left;
+        }
+
+
+        @@media screen and (max-width: 600px) {
+            .topnav a:not(:first-child) {
+                display: none;
+            }
+
+            .topnav a.icon {
+                float: right;
+                display: block;
+            }
+        }
+
+        @@media screen and (max-width: 600px) {
+            .topnav.responsive {
+                position: relative;
+            }
+
+                .topnav.responsive .icon {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+
+                .topnav.responsive a {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                }
+        }
+
+        .ActiveLink {
+            color: blue !important;
+            background-color: white !important;
+        }
+    </style>
+
+    @RenderSection("Styles", required: false)
+</head>
+<body ng-app="codexApp">
+
+    @{
+        var data = ViewBag.data;
+    }
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @*<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index", "dashboard")">
+
+                    <div class="sidebar-brand-text mx-3"><h4> Codex </h4><sup></sup></div>
+                </a>
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("Index", "Dashboard")">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <!-- Sidebar Toggler (Sidebar) -->
+
+            </ul>*@
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                @*<nav style="background-color: #1D79A2 !important;color:white;" class="navbar navbar-expand-lg bg-light navbar-light">*@
+                @*<nav style="background-color: #7e0d26 !important;color:white;" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">*@
+
+                <div class="logo_panel">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="left_logo">
+                                @* <h3 style="color: #5B9BD5;">Arab Food Occurrence Database</h3>*@
+                                @*<img style="width:30%;height:100%" src="~/CustomTemplate/img/textlogo.png" />*@
+                                @*<img style="width:30%;height:100%" src="~/CustomTemplate/img/qatarflag.png" />*@
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="left_logo" style="margin-top: 5%;margin-left: 25%;">
+                                <h3 style="font-size: 1.20rem;">Welcome <span class="blink-bg">@Session["username"].ToString()</span></h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="right_logo">
+                                @*<img style="width: 70%;float:right;" src="~/CustomTemplate/img/logo.png">*@
+                                <a href="https://gforss.org/" target="_blank">
+                                    <img style="width: 70%;float:right;" src="~/CustomTemplate/img/mainlogo.png" />
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <nav style="background-color: #2F5597 !important;color:white;" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow hideshownav">
+
+                    @if (data.Admin == 1 || data.Write == 1)
+                    {
+                        if (data.Admin == 1)
+                        {
+                            <div>
+                                <span class="menufont">
+                                    <a class="nav-link" style="color: white !important;" href="@Url.Action("Index", "Dashboard")">
+                                        @*<a class="nav-link" style="color: white;" href="javascript:;">*@
+                                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                </span>
+                            </div>
+
+                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <div>
+                                <span class="menufont">
+                                    <a class="nav-link" style="color: white !important;" href="@Url.Action("D3", "Home")">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        <span>Analytics</span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <div>
+                                <span class="menufont">
+                                    <a class="nav-link" style="color: white !important;" href="@Url.Action("Index", "MasterConfiguration")">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        <span>Master Configuration</span>
+                                    </a>
+                                </span>
+                            </div>
+                        }
+                        else if (data.Write == 1)
+                        {
+                            <div>
+                                <span class="menufont">
+                                    <a class="nav-link" style="color: white !important;" href="@Url.Action("Index", "Dashboard")">
+                                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                </span>
+                            </div>
+
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+                            <div>
+                                <span class="menufont">
+                                    <a class="nav-link" style="color: white !important;" href="@Url.Action("Index", "MasterConfiguration")">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        <span>Master Configuration</span>
+                                    </a>
+                                </span>
+                            </div>
+                        }
+                    }
+                    else if (data.Read == 1 || !Convert.ToBoolean(data.Read))
+                    {
+                        <div>
+                            <span class="menufont">
+                                <a class="nav-link" style="color: white !important;" href="@Url.Action("Index", "Dashboard")">
+                                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </span>
+                        </div>
+                    }
+                    @if (data.Admin == 1 || data.Write == 1 || data.Read == 1)
+                    {
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                    }
+
+                    <div ng-controller="mainController" style="margin-left:30%">
+                        <span class="menufont">
+                            <a class="nav-link" style="color: white !important;" ng-click="addEdit(@Session["userid"].ToString());" href="javascript:;">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span>Profile</span>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="topbar-divider d-none d-sm-block"></div>
+                    <div>
+                        <span class="menufont">
+                            <a class="nav-link" style="color: white !important;" href="@Url.Action("Login", "Account")">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                <span>LogOut</span>
+                            </a>
+                        </span>
+
+                    </div>
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </nav>
+
+                <!-- End of Topbar -->
+                @RenderBody()
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @*<footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2019</span>
+                    </div>
+                </div>
+            </footer>*@
+            <footer>
+                <div>
+                    
+                    <div>
+                       
+                        <img style="width: 25%;float: right;" src="~/CustomTemplate/img/logo.png">
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <script src="~/Assets/js/jquery.js"></script>
+    <script src="~/Assets/js/bootstrap.min.js"></script>
+    <script src="~/Assets/js/scripts.bundle.js"></script>
+    <script src="~/Assets/js/jquery-ui.js"></script>
+
+
+    <script src="~/Assets/js/sweetalert2.min.js"></script>
+    <script src="~/Assets/js/perfect-scrollbar.min.js"></script>
+    <script src="~/Assets/js/Chart.min.js"></script>
+    <script src="~/Assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Assets/js/select2.min.js"></script>
+
+
+    <script src="~/Assets/js/jquery.validate.min.js"></script>
+    <script src="~/Assets/js/datatables.bundle.min.js"></script>
+    <script src="~/Assets/js/chartist.min.js"></script>
+
+
+    <script src="~/CustomTemplate/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/CustomTemplate/js/sb-admin-2.min.js"></script>
+
+
+    <script src="~/assets/js/dashboard.js"></script>
+    <script src="~/assets/js/form-widgets.js"></script>
+    <script src="~/assets/js/easyzoom.js"></script>
+    <script src="~/assets/js/jquery.loadingModal.js"></script>
+    <script src="~/assets/js/jquery.cookie.js"></script>
+
+
+    <!-- fancybox-->
+    <script src="~/assets/plugin/fancybox/js/jquery.fancybox.pack.js"></script>
+    <script src="~/assets/plugin/fancybox/js/jquery.fancybox.js"></script>
+    <script src="~/assets/plugin/fancybox/js/jquery.fancybox-thumbs.js"></script>
+    <script src="~/assets/plugin/fancybox/js/jquery.fancybox-media.js"></script>
+    <script src="~/assets/plugin/fancybox/js/jquery.fancybox-buttons.js"></script>
+
+
+    <!-- Datatables-->
+    <script src="~/assets/plugin/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/plugin/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/plugin/datatables/js/dataTables.responsive.min.js"></script>
+
+
+    <!-- AngularJs -->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Angular/angular.min.js")"></script>
+
+
+
+    <script src="~/Scripts/Angular/angular-animate.min.js"></script>
+    <script src="~/Scripts/Angular/ngStorage.min.js"></script>
+    <script src="~/Scripts/Angular/ui-bootstrap-tpls-0.14.3.js"></script>
+    <script src="~/Scripts/Angular/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/Angular/angular-file-upload.js"></script>
+
+    @*<script>var __basePath = './';</script>
+        <script src="~/Scripts/Angular/ag-grid-community.min.js"></script>*@
+
+    @*Custom DatePicker*@
+    <script src="~/assets/plugin/datepicker/angular-datepicker.min.js"></script>
+
+    <!-- Angular Datatables-->
+    <script src="~/Assets/plugin/datatables/js/angular-datatables/angular-datatables.js"></script>
+    <script src="~/Assets/plugin/datatables/js/angular-datatables/angular-datatables.util.js"></script>
+    <script src="~/Assets/plugin/datatables/js/angular-datatables/angular-datatables.options.js"></script>
+    <script src="~/Assets/plugin/datatables/js/angular-datatables/angular-datatables.instances.js"></script>
+    <script src="~/Assets/plugin/datatables/js/angular-datatables/angular-datatables.factory.js"></script>
+    <script src="~/Assets/plugin/datatables/js/angular-datatables/angular-datatables.renderer.js"></script>
+    <script src="~/Assets/plugin/datatables/js/angular-datatables/angular-datatables.directive.js"></script>
+    <script src="~/Assets/plugin/datatables/js/angular-datatables/angular-datatables.buttons.min.js"></script>
+
+
+    <script src="~/assets/plugin/angular-ui-select/select.js"></script>
+    <script src="~/assets/plugin/angularjs-toaster/toaster.js"></script>
+    <script src="~/Scripts/Angular/SweetAlert.min.js"></script>
+    <script src="~/Scripts/Angular/angular-chart.min.js"></script>
+
+
+    @*TextAvatar*@
+    <script src="~/assets/js/gfl-text-avatar.min.js"></script>
+
+    <script src="~/Assets/plugin/ExcelRead/xlsx.full.min.js"></script>
+    <script src="~/Assets/plugin/ExcelRead/jszip.js"></script>
+
+    <!-- Main App Start -->
+    <script src="~/Scripts/App/app.js"></script>
+    <script src="~/Scripts/App/dashboard/profile.js"></script>
+    <script src="~/Scripts/App/masterconfiguration/service.js"></script>
+    @*<script src="~/Scripts/Angular/Helper/authInterceptorService.js"></script>*@
+    @*<script src="~/Translations/Scripts/customLanguageTranslate.js"></script>*@
+
+    <!-- Main App End -->
+
+    <script>
+        function showModal() {
+            $('body').loadingModal({ text: 'loading...' });
+
+            var delay = function (ms) { return new Promise(function (r) { setTimeout(r, ms) }) };
+            var time = 2000;
+
+            delay(time).then(function () { $('body').loadingModal('animation', 'rotatingPlane').loadingModal('backgroundColor', 'gray'); return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'wave'); return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'wanderingCubes');/*.loadingModal('backgroundColor', 'green');*/ return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'spinner'); return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'chasingDots');/*.loadingModal('backgroundColor', 'blue');*/ return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'threeBounce'); return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'circle');/*.loadingModal('backgroundColor', 'black');*/ return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'cubeGrid'); return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'fadingCircle').loadingModal('backgroundColor', '#1d79a2'); return delay(time); })
+                .then(function () { $('body').loadingModal('animation', 'foldingCube'); return delay(time); })
+            //.then(function () { $('body').loadingModal('color', 'black').loadingModal('text', 'Done :-)').loadingModal('backgroundColor', 'yellow'); return delay(time); })
+            //.then(function () { $('body').loadingModal('hide'); return delay(time); })
+            //.then(function () { $('body').loadingModal('destroy'); });
+        }
+        function StopLoader() {
+            var delay = function (ms) { return new Promise(function (r) { setTimeout(r, ms) }) };
+            var time = 500;
+
+            delay(time)
+                .then(function () { $('body').loadingModal('hide'); return delay(time); })
+                .then(function () { $('body').loadingModal('destroy'); });
+        }
+
+        (function ($) {
+            $(document).ajaxStart(function () {
+
+                showModal();
+            });
+            $(document).ajaxComplete(function () {
+
+                StopLoader();
+            });
+
+
+
+
+        })(jQuery);
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,2 @@
+Id,Year,Country,Contaminant,FoodGroup,FoodIdentifier,FoodCode,FoodOrigin,FoodAnalyzed,StudyObjective,SamplingPlan,AnalyticalTechnique,QualityAssurance,LOD,LODUnit,LOQ,LOQUnit,Recovery,Concentration,Average ,Median,RSD,SamplesBelow,Referece
+0,2021,Lebanon,Pb,,Infant formula,,Localy consumed,powder,"Evaluate infant formula contamination by lead, cadmium and arsenic.",39 brands*2 batches of each = 78 samples,Microwave digestion - ICP-MS,Validated,0.05,ng/mL,12.3,g/kg,81,31,371,,10,50,

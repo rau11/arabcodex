@@ -1,0 +1,15 @@
+﻿{
+  "LNG_Paragraph1": "The investment in data availability to support food regulatory measures is one of the key elements of the mandate of the Global Food Regulatory Science Society (GFoRSS). The availability and accuracy of occurrence data is crucial to support the development of sound and substantiated food regulatory decisions; data being the backbone of the risk analysis process. Similarly, the ability to contribute to the development and / or adaptation of international food standards requires the reliance on a robust set of occurrence data that reflect the local, national or regional environment and to support exposure assessment. Accessibility to occurrence data is yet a major challenge faced by the Arab region. Therefore, a priority area of investment in the field of food regulatory science was set for the region to ensure the availability of such data. This online portal was developed in this context, to allow the collection of Lebanese food occurrence data through a systematic scanning and data mining of published articles, and from data providers in the country (competent authorities, control laboratories, research institutes, academic institutions, etc.). It is expected that this database constitutes the repository of food occurrence data for the Lebanon, enabling its contribution to the Arab Food Occurrence Database, which in turn will potentially contribute to the GEMS Food database and other international calls for data in support of international food standard setting.",
+  "LNG_Paragraph2": "Users and data providers are kindly requested to register through the <a href='javascript:;' onclick='showHideLoginAndRegistration(false)'>registration link</a>.For any support or technical issue, please do not hesitate to contact us at <a href='mailto:database@arabcodex.org'> database@arabcodex.org</a>.",
+  "LNG_about": "About GFoRSS:",
+  "LNG_about1": "The <a href='https://gforss.org/' target='_blank'>Global Food Regulatory Science Society (GFoRSS)</a> is a not-for-profit organization whose mission is to promote the development of competencies, know-how and knowledge – including scientific and policy analyses – which underpin food regulatory decisions and support the development and implementation of food control systems.",
+  "LNG_Title": "Arab Food Occurrence Database",
+  "LNG_about2": "Powered and under license from FoodRegIT Platform.",
+  "LNG_SiginIn": "Sign In",
+  "LNG_UserRegistration": "User Registration",
+  "LNG_Message": "Your Email will be User Name",
+  "LNG_DontAccount": "Don't have an account?",
+  "LNG_AlreadyAccount": "You have already an account?",
+  "LNG_Login": "Login",
+  "LNG_Register": "Register"
+}

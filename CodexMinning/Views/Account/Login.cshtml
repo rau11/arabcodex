@@ -1,0 +1,433 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">*@
+    <link href="~/Content/LoginCss/bootstrap.min.css" rel="stylesheet" />
+    <!--Fontawesome CDN-->
+    @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">*@
+    <link href="~/Content/LoginCss/all.css" rel="stylesheet" />
+    <!--Custom styles-->
+    @*<link rel="stylesheet" type="text/css" href="styles.css">*@
+    <link href="~/Content/login.css" rel="stylesheet" />
+    @*<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
+    <link href="~/Content/LoginCss/bootstrap1.min.css" rel="stylesheet" />
+
+    @*<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    <script src="~/Content/LoginCss/jquery.min.js"></script>
+
+    @*<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+    <script src="~/Content/LoginCss/bootstrap.min.js"></script>
+
+    <script src="~/Content/LoginCss/sweetalert.min.js"></script>
+
+
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+        @@-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+
+
+        .button {
+            position: relative;
+            padding: 8px 16px;
+            /*background: #FFC312;*/
+            background: #2F5597;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            width: 100px;
+            border-radius: 0.25rem;
+        }
+
+            .button:active {
+                background: #007a63;
+            }
+
+        .button__text {
+            /*font: bold 20px "Quicksand", san-serif;*/
+            /*color: #000000;*/
+            color: var(--textcolor);
+            transition: all 0.2s;
+        }
+
+        .button--loading .button__text {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .button--loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 4px solid transparent;
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: button-loading-spinner 1s ease infinite;
+        }
+
+        @@keyframes button-loading-spinner {
+            from {
+                transform: rotate(0turn);
+            }
+
+            to {
+                transform: rotate(1turn);
+            }
+        }
+
+        .card-footer {
+            padding: .75rem 1.25rem;
+            margin: 20px;
+            /*background-color: #5B9BD5;*/
+            /*background-color: rgb(91 168 237 / 9%);*/
+            background-color: rgb(91 168 237 / 0%);
+            border-top: 1px solid rgba(0, 0, 0, .125);
+        }
+
+        .arabic_language {
+            direction: rtl;
+        }
+        .buttonwidth{
+            width:37%;
+        }
+    </style>
+</head>
+<body ng-app="codexLoginApp">
+    <div class="container-fluid" ng-controller="loginController">
+
+        <div class="row">
+            <div class="col-lg-2" style="margin: auto;">
+                <div>
+                    @*<img style="width:50%;height:100%" src="~/CustomTemplate/img/textlogo.png" />*@
+                    @*<img style="width:50%;height:100%" src="~/CustomTemplate/img/qatarflag.png" />*@
+                </div>
+            </div>
+            <div class="col-lg-6" style="margin: auto;">
+                <div class="">
+                    @*<h1 style="color: #FFC312;">Arab Food Occurrence Database</h1>*@
+                    <h1 style="color: #5B9BD5;" translate="LNG_Title">Arab Food Occurrence Database</h1>
+                </div>
+            </div>
+            <div class="col-lg-4" style="margin: auto;">
+                @*<img style="width: 100%;" src="~/CustomTemplate/img/logo.png" />*@
+                <a href="https://gforss.org/" target="_blank">
+                    <img style="width: 100%;" src="~/CustomTemplate/img/mainlogo.png" />
+                </a>
+            </div>
+            <div class="col-lg-12" style="margin: auto;">
+                <div >
+                    <ul class="m-topbar__nav m-nav m-nav--inline">
+                        <li class="m-nav__item m-topbar__languages m-dropdown m-dropdown--small m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--mobile-full-width" m-dropdown-toggle="click">
+                            <a href="javascript:;" id="ancEnglish" style="float: left;display:none;" class="m-nav__link m-nav__link--active" ng-click="changeLanguage('en', 1)">
+                                <span class="m-nav__link-title m-topbar__language-text m-nav__link-text">English</span>
+                            </a>
+                            <a href="javascript:;" id="ancArabic" style="float: left;" class="m-nav__link m-nav__link--active" ng-click="changeLanguage('ar', 2)">
+                                <span class="m-nav__link-title m-topbar__language-text m-nav__link-text">عربي</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-7" style="margin-top:2%;">
+                <p style="color:white;" translate="LNG_Paragraph1">
+                    The investment in data availability to support food regulatory measures is one of the key elements of the mandate of the Global Food Regulatory Science Society (GFoRSS). The availability and accuracy of occurrence data is crucial to support the development of sound and substantiated food regulatory decisions; data being the backbone of the risk analysis process. Similarly, the ability to contribute to the development and / or adaptation of international food standards requires the reliance on a robust set of occurrence data that reflect the local, national or regional environment and to support exposure assessment. Accessibility to occurrence data is yet a major challenge faced by the Arab region. Therefore, a priority area of investment in the field of food regulatory science was set for the region to ensure the availability of such data. This online portal was developed in this context, to allow the collection of Qatari food occurrence data through a systematic scanning and data mining of published articles, and from data providers in the country (competent authorities, control laboratories, research institutes, academic institutions, etc.). It is expected that this database constitutes the repository of food occurrence data for the Qatar, enabling its contribution to the Arab Food Occurrence Database, which in turn will potentially contribute to the GEMS Food database and other international calls for data in support of international food standard setting.
+                </p>
+                @*<p style="color:white;" translate="LNG_Paragraph2">
+                    Users and data providers are kindly requested to register through the <a href='javascript:;' ng-click='showHideLoginAndRegistration("divSignIn",false)'>registration link</a>.
+                    For any support or technical issue, please do not hesitate to contact us at <a href='javascript:;'> database@arabcodex.org</a>.
+                </p>*@
+
+                <p style="color:white;" translate="LNG_Paragraph2">
+                    Users and data providers are kindly requested to register through the <a href="javascript:;" onclick="showHideLoginAndRegistration(false)">registration link</a>.
+                    For any support or technical issue, please do not hesitate to contact us at <a href="mailto:database@arabcodex.org"> database@arabcodex.org</a>.
+                </p>
+                <p style="color:white;" translate="LNG_about">About GFoRSS: </p>
+                <p style="color:white;" translate="LNG_about1">The <a href="https://gforss.org/" target="_blank">Global Food Regulatory Science Society (GFoRSS)</a> is a not-for-profit organization whose mission is to promote the development of competencies, know-how and knowledge – including scientific and policy analyses – which underpin food regulatory decisions and support the development and implementation of food control systems.</p>
+                <h6 style="color: #5B9BD5;" translate="LNG_about2">Powered and under license from FoodRegIT Platform. </h6>
+                @*<img style="width: 50%;float: right;" src="~/CustomTemplate/img/logo.png">*@
+            </div>
+            <div class="col-lg-5" style="margin-top:2%;">
+                <div>
+                    @*<img style="width: 100%;" src="~/CustomTemplate/img/logo.png" />*@
+                    
+                    <div class="d-flex justify-content-center h-100">
+                        <div class="card" id="divSignIn" style="height:auto;">
+                            <div class="card-header">
+                                <h3 translate="LNG_SiginIn">Sign In</h3>
+                            </div>
+                            <div class="card-body">
+                                <form ng-submit="submit()" name="Form" novalidate>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group form-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input required class="form-control" name="username" ng-model="login.UserName" placeholder="email" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span ng-show="validateInput('username', 'required')" class="text-danger"><span>This field is required</span></span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                    </div>
+                                                    <input required type="password" class="form-control" name="password" ng-model="login.Password" placeholder="password" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span ng-show="validateInput('password', 'required')" class="text-danger"><span>This field is required</span></span>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group" ng-if="isValidUser && Form.$valid">
+                                                <span class="text-danger"><span>{{inValidMessage}}</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                @*<input type="submit" value="Login" class="btn float-right login_btn">*@
+                                                <button type="submit" class="float-right button " ng-class="{'button--loading': LoginValid==true}" id="btnLogin">
+                                                    <span class="button__text" translate="LNG_Login">Login</span>
+                                                </button>
+                                                @*<div class="loader" ng-if="LoginValid"></div>*@
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="card-footer">
+                                                <div class="d-flex justify-content-center links">
+                                                    <span translate="LNG_DontAccount">Don't have an account?</span> 
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    @*<a href="javascript:;" ng-click="showHideLoginAndRegistration('divSignIn',false)">Sign Up</a>*@
+                                                    <button type="button" ng-click="showHideLoginAndRegistration('divSignIn',false)" class="float-right button" id="btnRegister">
+                                                        <span class="button__text" translate="LNG_Register">Register</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card" id="divRegistration" style="margin-left:10%;height:auto;display:none;">
+                            <div class="card-header">
+                                <h3 translate="LNG_UserRegistration">User Registration</h3>
+                                <h6 style="color:white;" translate="LNG_Message">Your Email will be User Name.</h6>
+
+
+                            </div>
+                            <div class="card-body">
+                                <form ng-submit="submitUR()" name="URForm" novalidate>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group form-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input required class="form-control" name="FullName" ng-model="URLogin.FullName" placeholder="Full Name" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span ng-show="validateInputUR('FullName', 'required')" class="text-danger"><span>This field is required</span></span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input-group form-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                </div>
+                                                <input required class="form-control" ng-pattern="emailFormat" name="Email" ng-model="URLogin.Email" placeholder="Email" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span ng-show="validateInputUR('Email', 'required')" class="text-danger"><span>This field is required</span></span>
+                                            <span class="text-danger" ng-show="URForm.Email.$error.pattern">
+                                                Not valid email!
+                                            </span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                    </div>
+                                                    <input required type="password" class="form-control" ng-pattern="pattern" name="password" ng-model="URLogin.Password" placeholder="Password" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span ng-show="validateInputUR('password', 'required')" class="text-danger"><span>This field is required</span></span>
+                                            <span ng-show="validateInputUR('password', 'pattern')" class="text-danger">
+                                                <span>
+                                                    Password should be atleast 8 characters long
+                                                    and should contain one number,one character and one special
+                                                    character
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                    </div>
+                                                    <input required type="password" class="form-control" name="CPassword" ng-model="URLogin.CPassword" placeholder="Re-Type Password" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span ng-show="validateInputUR('CPassword', 'required')" class="text-danger"><span>This field is required</span></span>
+                                        </div>
+                                        <div class="col-md-12" ng-if="(URLogin.Password && URLogin.CPassword)&&(URLogin.CPassword != URLogin.Password)">
+                                            @*<span class="text-danger" style="color:#FFC312 !important;"><span>Password and Confirm Password should be same.</span></span>*@
+                                            <span class="text-danger"><span>Password and Confirm Password should be same.</span></span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fa fa-flag"></i></span>
+                                                    </div>
+                                                    @*<input required type="text" class="form-control" name="Nationality" ng-model="URLogin.Nationality" placeholder="Nationality" />*@
+                                                    <select class="form-control" required ng-model="URLogin.CountryId" id="Nationality" name="Nationality">
+                                                        <option value="">Select Nationality</option>
+                                                        <option ng-repeat="item in countryList" value="{{item.Id}}">{{item.Name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span ng-show="validateInputUR('Nationality', 'required')" class="text-danger"><span>This field is required</span></span>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fa fa-building"></i></span>
+                                                    </div>
+                                                    <input required type="text" class="form-control" name="Organization" ng-model="URLogin.Organization" placeholder="Organization" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span ng-show="validateInputUR('Organization', 'required')" class="text-danger"><span>This field is required</span></span>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group" ng-if="isValidUserUR && URForm.$valid">
+                                                <span class="text-danger"><span>{{inValidMessageUR}}</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="float-right button" ng-class="{'button--loading': LoginValidUR==true}" id="btnRegister">
+                                                    <span class="button__text" translate="LNG_Register">Register</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="card-footer">
+                                                <div class="d-flex justify-content-center links">
+                                                    <span translate="LNG_AlreadyAccount">You have already an account?</span> 
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <button type="button" class="float-right button" ng-click="showHideLoginAndRegistration('divRegistration',true)" id="btnUpload">
+                                                        <span class="button__text" translate="LNG_Login">Login</span>
+                                                    </button>
+                                                    @*<a href="javascript:;" ng-click="showHideLoginAndRegistration('divRegistration',true)">Login</a>*@
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <img style="width: 95%;float: right;" src="~/CustomTemplate/img/logo.png">
+                </div>
+            </div>
+        </div>
+
+        @*<div class="row">
+
+            </div>*@
+        @*<div class="row" style="margin-top: 1%;">
+                <div class="col-lg-12"></div>
+            </div>*@
+
+
+    </div>
+
+    <!-- AngularJs -->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Angular/angular.min.js")"></script>
+    <script src="~/Scripts/Angular/angular-animate.min.js"></script>
+    <script src="~/Scripts/Angular/ngStorage.min.js"></script>
+    <script src="~/Scripts/Angular/ui-bootstrap-tpls-0.14.3.js"></script>
+    <script src="~/Scripts/Angular/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/Angular/angular-file-upload.js"></script>
+
+    @*<script src="~/Translations/Scripts/angular.js"></script>
+        <script src="~/Translations/Scripts/angular-translate.js"></script>
+        <script src="~/Translations/Scripts/angular-translate-loader-static-files.js"></script>*@
+
+    <script src="~/Translations/Scripts/angular.js"></script>
+    <script src="~/Translations/Scripts/angular-translate.js"></script>
+    <script src="~/Translations/Scripts/angular-translate-loader-static-files.js"></script>
+    @*<script src="~/Translations/Scripts/customLanguageTranslate.js"></script>*@
+
+    <script src="~/Scripts/App/Login/loginController.js"></script>
+    <script src="~/Scripts/App/Login/service.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿
+<link href="~/Assets/plugin/angular-ui-select/select.css" rel="stylesheet" />
+<link href="~/Assets/plugin/angular-ui-select/select2.css" rel="stylesheet" />
+<style>
+    .startcolor {
+        color: red;
+    }
+</style>
+<div class="modal fade show" id="m_modal_4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span ng-if="model.Id == undefined"><span>Add</span></span><span ng-if="model.Id > 0"><span>Edit</span></span> <span> Role</span></h5>
+                <button type="button" class="close" ng-click="closeThisModel()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form ng-submit="submitForm()" name="Form" novalidate class="form-validate form-control-static">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-control-label"> <span>Name</span>: <span class="startcolor">*</span></label>
+                                <div class="controls cal_icon input-group">
+                                    <input type="text" required class="form-control  m-input" name="Name" ng-model="model.Name" placeholder="Name">
+                                </div>
+                                <span ng-show="validateInput('Name', 'required')" class="text-danger"><span>This field is required</span></span>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="margin-top: 25px;">
+                            <div class="form-group">
+                                <div class="controls cal_icon input-group">
+                                    <input class="form-control  m-input" type="checkbox" name="IsActive" ng-model="model.IsActive">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-click="submitAndNew=false"><span>Save</span></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="closeThisModel()"><span>Close</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/Assets/plugin/angular-ui-select/select.js"></script>
+
+

@@ -1,0 +1,130 @@
+﻿/* Made with love by Mutiullah Samim*/
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+:root {
+    --textcolor: white;
+    --textbackcolor: #2F5597;
+}
+html, body {
+    /*background-image: url('/Content/img/544750.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;*/
+    /*height: 100%;*/
+    /*height: max-content;
+    font-family: 'Numans', sans-serif;*/
+    /*background-image: url('img/backgroung.jpg');*/
+    background-image: url('img/header-image_frontpage.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Numans', sans-serif;
+    position: relative;
+    z-index: 999;
+}
+
+    /*body:after {
+        position: absolute;
+        
+        height: -webkit-fill-available;
+        width: 100%;
+        background-color: #00000080;
+        content: "";
+        z-index: -99;
+        top: 0;
+        left: 0;
+        bottom: auto;
+    }*/
+    body:after {
+        position: absolute;
+        height: 100vh;
+        min-height: -webkit-fill-available;
+        /*height: -o-fill-available;*/
+        width: 100%;
+        background-color: #00000080;
+        content: "";
+        z-index: -99;
+        top: 0;
+        left: 0;
+        bottom: auto;
+    }
+
+.container {
+    height: 100%;
+    align-content: center;
+}
+
+.card {
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    /*background-color: rgba(0,0,0,0.5) !important;*/
+    /*background-color: #4181bb !important;*/
+    /*background-color: #5B9BD5 !important;*/
+    background-color: rgb(91 168 237 / 28%) !important;
+}
+
+.social_icon span {
+    font-size: 60px;
+    margin-left: 10px;
+    color: #FFC312;
+}
+
+    .social_icon span:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+.card-header h3 {
+    color: white;
+}
+
+.social_icon {
+    position: absolute;
+    right: 20px;
+    top: -45px;
+}
+
+.input-group-prepend span {
+    width: 50px;
+    /*background-color: #FFC312;*/
+    /*background-color: #2F5597;*/
+    background-color: var(--textbackcolor);
+    /*color: black;*/
+    color: var(--textcolor);
+    border: 0 !important;
+}
+
+input:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.remember {
+    color: white;
+}
+
+    .remember input {
+        width: 20px;
+        height: 20px;
+        margin-left: 15px;
+        margin-right: 5px;
+    }
+
+.login_btn {
+    color: black;
+    background-color: #FFC312;
+    width: 100px;
+}
+
+    .login_btn:hover {
+        color: black;
+        background-color: white;
+    }
+
+.links {
+    color: white;
+}
+
+    .links a {
+        margin-left: 4px;
+    }

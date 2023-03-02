@@ -1,0 +1,482 @@
+﻿
+<link href="~/Assets/plugin/angular-ui-select/select.css" rel="stylesheet" />
+<link href="~/Assets/plugin/angular-ui-select/select2.css" rel="stylesheet" />
+<style>
+    .startcolor {
+        color: red;
+    }
+
+    @@media (min-width: 992px) {
+        .modal-lg, .modal-xl {
+            max-width: 90%;
+        }
+    }
+</style>
+<div class="modal fade show" id="modal_AddCodex" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span ng-if="model.Id == undefined"><span>Add</span></span><span ng-if="model.Id > 0 && !isEdit"><span>Edit</span></span> <span ng-if="model.Id > 0 && isEdit"><span>View</span></span> <span>Contaminant</span></h5>
+                <button type="button" class="close" ng-click="closeThisModel()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form ng-submit="submitForm()" name="Form" novalidate class="form-validate form-control-static">
+                <fieldset ng-disabled="isEdit">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Year</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the year when the study was performed">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.Year" required name="Year" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select Year">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="b.LookupKey as b in lookUpList | filter:'Year'  " refresh-delay="0">
+                            <span ng-bind-html="b.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+
+                                        <select ng-model="model.Year" required name="Year" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select Year</option>
+                                            <option ng-repeat="item in lookUpList | filter:'Year'" ng-selected="item.LookupKey==model.Year" ng value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('Year', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Country</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the country where the study was performed">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.Country" required name="Country" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select Country">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="b.LookupKey as b in lookUpList | filter:'Country'  " refresh-delay="0">
+                            <span ng-bind-html="b.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+                                        <select ng-model="model.Country" required name="Country" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select Country</option>
+                                            <option ng-repeat="item in lookUpList | filter:'Country' " ng-selected="item.LookupKey==model.Country" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('Country', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Food Category</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="Type of contaminant category">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls">
+                                       <select ng-model="model.FoodCategory" required name="FoodCategory" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select Category</option>
+                                            <option ng-repeat="item in lookUpList | filter:'Food Category' " ng-selected="item.LookupKey==model.FoodCategory" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('FoodCategory', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Contaminant</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the contaminant being analyzed">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.Contaminant" required name="Contaminant" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select Contaminant">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="b.LookupKey as b in lookUpList | filter:'Contaminant'  " refresh-delay="0">
+                            <span ng-bind-html="b.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+
+                                        <select ng-model="model.Contaminant" required name="Contaminant" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select Contaminant</option>
+                                            <option ng-repeat="item in lookUpList | filter:'Contaminant'" ng-selected="item.LookupKey==model.Contaminant" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('Contaminant', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Food Group</span>: <span class="startcolor">*</span></label>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="FoodGroup" ng-model="model.FoodGroup" placeholder="Food Group">
+                                    </div>
+                                    <span ng-show="validateInput('FoodGroup', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>WHO Food Identifier</span>: <span class="startcolor">*</span></label>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="FoodIdentifier" ng-model="model.FoodIdentifier" placeholder="Food Identifier">
+                                    </div>
+                                    <span ng-show="validateInput('FoodIdentifier', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>WHO Food Code</span>: <span class="startcolor">*</span></label>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="FoodCode" ng-model="model.FoodCode" placeholder="Food Code">
+                                    </div>
+                                    <span ng-show="validateInput('FoodCode', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Food Name</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the food name when it is not found in the adopted classification, or give any additional specification">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+
+                                        <textarea type="text" required class="form-control  m-input" name="FoodName" ng-model="model.FoodName" placeholder="Food Name"></textarea>
+                                    </div>
+                                    <span ng-show="validateInput('FoodName', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Food Origin</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the food origin by country">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.FoodOrigin" required name="FoodOrigin" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select Food Origin">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="b.LookupKey as b in lookUpList | filter:'Food Origin'  " refresh-delay="0">
+                            <span ng-bind-html="b.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+
+                                        <select ng-model="model.FoodOrigin" required name="FoodOrigin" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select Food Origin</option>
+                                            <option ng-repeat="item in lookUpList | filter:'Food Origin'" ng-selected="item.LookupKey==model.FoodOrigin" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('FoodOrigin', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>State of Food Analyzed</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="Briefly indicate the state of food when analyzed">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.FoodAnalyzed" required name="FoodAnalyzed" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select Food Analyzed">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="b.LookupKey as b in lookUpList | filter:'State of Food Analyzed'  " refresh-delay="0">
+                            <span ng-bind-html="b.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+                                        <select ng-model="model.FoodAnalyzed" required name="FoodAnalyzed" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select Food Analyzed</option>
+                                            <option ng-repeat="item in lookUpList | filter:'State of Food Analyzed'" ng-selected="item.LookupKey==model.FoodAnalyzed" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('FoodAnalyzed', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Study Objective</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="Briefly state the study objective using the main keywords">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        @*<input type="text" required class="form-control  m-input" name="StudyObjective" ng-model="model.StudyObjective" placeholder="Study Objective">*@
+                                        <textarea type="text" required class="form-control  m-input" name="StudyObjective" ng-model="model.StudyObjective" placeholder="Study Objective"></textarea>
+                                    </div>
+                                    <span ng-show="validateInput('StudyObjective', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Sampling Plan</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="Type of sampling plan (random, systematic, etc.), number and origin of samples, Representativeness, etc.">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        @* <input type="text" required class="form-control  m-input" name="SamplingPlan" ng-model="model.SamplingPlan" placeholder="Sampling Plan">*@
+                                        <textarea type="text" required class="form-control  m-input" name="SamplingPlan" ng-model="model.SamplingPlan" placeholder="Sampling Plan"></textarea>
+                                    </div>
+                                    <span ng-show="validateInput('SamplingPlan', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Analytical Technique</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="Briefly state the sample preparation method and the determination technique">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.AnalyticalTechnique" required name="AnalyticalTechnique" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select Analytical Technique">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="b.LookupKey as b in lookUpList | filter:'Analytical Technique'  " refresh-delay="0">
+                            <span ng-bind-html="b.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+
+                                        <select ng-model="model.AnalyticalTechnique" required name="AnalyticalTechnique" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select Analytical Technique</option>
+                                            <option ng-repeat="item in lookUpList | filter:'Analytical Technique'" ng-selected="item.LookupKey==model.AnalyticalTechnique" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('AnalyticalTechnique', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Analytical Quality Assurance</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="Has the analytical method been validated?">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="QualityAssurance" ng-model="model.QualityAssurance" placeholder="Quality Assurance">
+                                    </div>
+                                    <span ng-show="validateInput('QualityAssurance', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>LOD</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the value, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="LOD" ng-model="model.LOD" placeholder="LOD">
+                                    </div>
+                                    <span ng-show="validateInput('LOD', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>LOD Unit</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the unit, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.LODUnit" required name="LODUnit" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select LOD Unit">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="u.LookupKey as u in lookUpUnit" refresh-delay="0">
+                            <span ng-bind-html="u.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+
+                                        <select ng-model="model.LODUnit" required name="LODUnit" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select LOD Unit</option>
+                                            <option ng-repeat="item in lookUpUnit" ng-selected="item.LookupKey==model.LODUnit" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('LODUnit', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>LOQ</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the value, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="LOQ" ng-model="model.LOQ" placeholder="LOQ">
+                                    </div>
+                                    <span ng-show="validateInput('LOQ', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>LOQ Unit</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the unit, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.LOQUnit" required name="LOQUnit" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select LOQ Unit">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="u.LookupKey as u in lookUpUnit" refresh-delay="0">
+                            <span ng-bind-html="u.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+
+                                        <select ng-model="model.LOQUnit" required name="LOQUnit" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select LOQ Unit</option>
+                                            <option ng-repeat="item in lookUpUnit" ng-selected="item.LookupKey==model.LOQUnit" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('LOQUnit', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Recovery (%)</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="As an average value or a range (e.g. 95-110)">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="Recovery" ng-model="model.Recovery" placeholder="Recovery">
+                                    </div>
+                                    <span ng-show="validateInput('Recovery', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Concentration Range-Min</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the value, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="Concentration" ng-model="model.Concentration" placeholder="Concentration Range-Min">
+                                    </div>
+                                    <span ng-show="validateInput('Concentration', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Concentration Range-Max</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the value, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="ConcentrationRangeMax" ng-model="model.ConcentrationRangeMax" placeholder="Concentration Range-Max">
+                                    </div>
+                                    <span ng-show="validateInput('ConcentrationRangeMax', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Average</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the value, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="Average" ng-model="model.Average" placeholder="Average">
+                                    </div>
+                                    <span ng-show="validateInput('Average', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Median</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the value, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="Median" ng-model="model.Median" placeholder="Median">
+                                    </div>
+                                    <span ng-show="validateInput('Median', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Unit</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the unit, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls">
+                                        <select ng-model="model.Unit" required name="Unit" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                                            <option value="">Select Unit</option>
+                                            <option ng-repeat="item in lookUpUnit" ng-selected="item.LookupKey==model.Unit" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('Unit', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>RSD (%)</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the value of the repeatability RSD, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="RSD" ng-model="model.RSD" placeholder="RSD (%)">
+                                    </div>
+                                    <span ng-show="validateInput('RSD', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Percentage of Samples below LOD (%)</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="State the number, otherwise N/A">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="SamplesBelow" ng-model="model.SamplesBelow" placeholder="Samples Below">
+                                    </div>
+                                    <span ng-show="validateInput('SamplesBelow', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>Individual Sample Result / Average Results</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="Concentrations are obtained from an individual sample analysis or from sample pooling?">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls">
+                                        @*<ui-select ng-model="model.IndividualSampleAverageResults" required name="IndividualSampleAverageResults" theme="select2" ng-disabled="disabled" class="text-left form-control">
+                        <ui-select-match placeholder="Select Sample/Average Results">{{$select.selected.LookupKey}}</ui-select-match>
+                        <ui-select-choices repeat="u in lookUpSAList" refresh-delay="0">
+                            <span ng-bind-html="u.LookupKey | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>*@
+                                        <select ng-model="model.IndividualSampleAverageResults" required name="IndividualSampleAverageResults" theme="select2" ng-disabled="disabled" class="form-control">
+                                            <option value="">Select Select Sample/Average Results</option>
+                                            <option ng-repeat="item in lookUpSAList" ng-selected="item.LookupKey==model.IndividualSampleAverageResults" value="{{item.LookupKey}}">{{item.LookupKey}}</option>
+                                        </select>
+                                        <span ng-show="validateInput('IndividualSampleAverageResults', 'required')" class="text-danger"><span>This field is required</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-control-label"> <span>DOI Reference</span>: <span class="startcolor">*</span></label>
+                                    <a href="javascript:void(0);" title="Paste here the DOI of the published article (e.g. 10.1080/19440049.2013.832399)">
+                                        <i class="fa fa-info-circle" style="font-size:16px"></i>
+                                    </a>
+                                    <div class="controls cal_icon input-group">
+                                        <input type="text" required class="form-control  m-input" name="Referece" ng-model="model.Referece" placeholder="Referece">
+                                    </div>
+                                    <span ng-show="validateInput('Referece', 'required')" class="text-danger"><span>This field is required</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" ng-if="!isEdit">
+                        <button type="submit" class="btn btn-success" ng-click="submitAndNew=false"><span>Save</span></button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="closeThisModel()"><span>Close</span></button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/Assets/plugin/angular-ui-select/select.js"></script>
+
