@@ -41,6 +41,7 @@ namespace CodexMinning.Core.Entities
         public virtual DbSet<Vw_Get_SA_Results> Vw_Get_SA_Results { get; set; }
         public virtual DbSet<MinningTable> MinningTables { get; set; }
         public virtual DbSet<Vw_GetMinnigTable> Vw_GetMinnigTable { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
     
         public virtual ObjectResult<Sp_AddUpdateLookupParameter_Result> Sp_AddUpdateLookupParameter(Nullable<int> id, string type, string lookupKey, string lookupValue, Nullable<bool> isActive)
         {
@@ -468,6 +469,11 @@ namespace CodexMinning.Core.Entities
                 new ObjectParameter("SearchYear", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetMininngDataNew_Result>("SP_GetMininngDataNew", pageNumberParameter, pageSizeParameter, yearParameter, foodCategoryParameter, countryParameter, contaminantParameter, foodGroupParameter, foodIdentifierParameter, foodCodeParameter, foodOriginParameter, foodNameParameter, foodAnalyzedParameter, studyObjectiveParameter, samplingPlanParameter, analyticalTechniqueParameter, qualityAssuranceParameter, lODParameter, lODUnitParameter, lOQParameter, lOQUnitParameter, recoveryParameter, concentrationParameter, concentrationRangeMaxParameter, averageParameter, medianParameter, unitParameter, rSDParameter, samplesBelowParameter, individualSampleAverageResultsParameter, refereceParameter, orderByParameter, searchYearParameter);
+        }
+    
+        public virtual ObjectResult<SP_ExportMininngData_Result> SP_ExportMininngData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ExportMininngData_Result>("SP_ExportMininngData");
         }
     }
 }

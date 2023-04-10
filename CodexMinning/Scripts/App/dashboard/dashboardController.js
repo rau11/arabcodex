@@ -36,6 +36,21 @@
 
         $scope.AllSearch = {};
 
+        $scope.ColumnsList = [];
+        $scope.ColumnsList.push({ Id: 5, Value: 'WHO Food Identifier' });
+        $scope.ColumnsList.push({ Id: 6, Value: 'WHO Food Code' });
+        $scope.ColumnsList.push({ Id: 8, Value: 'Food Origin' });
+        $scope.ColumnsList.push({ Id: 9, Value: 'State of the Food Analyzed' });
+        $scope.ColumnsList.push({ Id: 10, Value: 'Study Objective' });
+        $scope.ColumnsList.push({ Id: 12, Value: 'Analytical Technique' });
+        $scope.ColumnsList.push({ Id: 13, Value: 'Analytical Quality Assurance' });
+        $scope.ColumnsList.push({ Id: 14, Value: 'LOD' });
+        $scope.ColumnsList.push({ Id: 15, Value: 'LOD Unit' });
+        $scope.ColumnsList.push({ Id: 16, Value: 'LOQ' });
+        $scope.ColumnsList.push({ Id: 17, Value: 'LOQ Unit' });
+        $scope.ColumnsList.push({ Id: 18, Value: 'Recovery (%)' });
+      
+
         vm.Year = "";
         vm.Country = "";
         vm.FoodCategory = "";
@@ -131,36 +146,39 @@
         .withOption('initComplete', function () {
             $scope.loading = false;
         })
-        .withButtons([
-            {
-                extend: "excelHtml5",
-                filename: "CodexMinning",
-                title: "Codex Minning",
-                exportOptions: {
-                    columns: ":not(.not-export-column)"
-                },
-                exportData: { decodeEntities: true }
-            },
-            {
-                extend: "csvHtml5",
-                filename: "CodexMinning",
-                title: "Codex Minning",
-                exportOptions: {
-                    columns: ":not(.not-export-column)"
-                },
-                exportData: { decodeEntities: true }
-            },
-
-            {
-                extend: 'print',
-                filename: "CodexMinning",
-                title: "Codex Minning",
-                autoPrint: false,
-                exportOptions: {
-                    columns: ":not(.not-export-column)"
-                }
-            }
-        ])
+        .withButtons(
+            [{ extend: 'colvis' }]
+            //[
+        //    {
+        //        extend: "excel",
+        //        filename: "CodexMinning",
+        //        title: "Codex Minning",
+        //        exportOptions: {
+        //            columns: ":not(.not-export-column)",
+        //            modifier: {
+        //                order: 'current',
+        //                page: 'all',
+        //                selected: 'applied'
+        //            }
+        //        },
+        //        exportData: { decodeEntities: true }
+        //    },
+        //    {
+        //        extend: "csvHtml5",
+        //        filename: "CodexMinning",
+        //        title: "Codex Minning",
+        //        exportOptions: {
+        //            columns: ":not(.not-export-column)",
+        //            modifier: {
+        //                order: 'current',
+        //                page: 'all',
+        //                selected: null
+        //            }
+        //        },
+        //        exportData: { decodeEntities: true }
+        //    }
+        //]
+        )
         //.withOption('processing', true)
         .withOption('serverSide', true)
         .withOption('paging', true)
@@ -174,6 +192,7 @@
             // Recompiling so we can bind Angular directive to the DT 
             $compile(angular.element(thead).contents())($scope);
         })
+        .withDOM('B<"top.tbl-pageLength"l>rt<"bottom"ip><"clear">')
         .withOption('createdRow', function (row) {
 
             // Recompiling so we can bind Angular directive to the DT 
@@ -739,8 +758,30 @@
 
         // Dynamically hide the column
 
-       /* var column = table.column(5);
-        column.visible(false);*/
+        var column = table.column(5);
+        column.visible(false);
+        column = table.column(6);
+        column.visible(false);
+        column = table.column(8);
+        column.visible(false);
+        column = table.column(9);
+        column.visible(false);
+        column = table.column(10);
+        column.visible(false);
+        column = table.column(12);
+        column.visible(false);
+        column = table.column(13);
+        column.visible(false);
+        column = table.column(14);
+        column.visible(false);
+        column = table.column(15);
+        column.visible(false);
+        column = table.column(16);
+        column.visible(false);
+        column = table.column(17);
+        column.visible(false);
+        column = table.column(18);
+        column.visible(false);
 
         $('a.toggle-vis').on('click', function (e) {
             e.preventDefault();
@@ -754,6 +795,28 @@
 
     }); // document ready	
 
-    
+    $scope.ShowHideColumn = function (val) {
+        debugger;
+        var table = $('#datadetailsdiv').DataTable();
+        
+
+        for (i = 0; i < $scope.ColumnsList.length; i++) {
+            var col = $scope.ColumnsList[i].Id;
+            // Get the column API object
+            var column = table.column(col);
+            column.visible(false);
+        }
+
+        for (i = 0; i < val.length; i++) {
+            var col = val[i];
+            // Get the column API object
+            var column = table.column(col);
+
+            // Toggle the visibility
+            column.visible(true);
+        }
+       
+
+    };
 
 }]);

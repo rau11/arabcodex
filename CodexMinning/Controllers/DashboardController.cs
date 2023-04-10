@@ -1,4 +1,5 @@
-﻿using CodexMinning.Core.Entities;
+﻿using CodexMinning.Core.Common.Helper;
+using CodexMinning.Core.Entities;
 using CodexMinning.Core.Services.LoginService;
 using ExcelDataReader;
 using System;
@@ -286,7 +287,7 @@ namespace CodexMinning.Controllers
             }
         }
 
-       
+
         public class ListViewModel
         {
             public int Id { get; set; }
@@ -459,9 +460,40 @@ namespace CodexMinning.Controllers
         }
         public class LookUpViewModel
         {
-            public  string Type { get; set; }
+            public string Type { get; set; }
             public string LookupKey { get; set; }
             public string LookupValue { get; set; }
+        }
+
+
+
+        [HttpGet, Route("exportMininngData")]
+        public void ExportMininngData()
+        {
+            try
+            {
+                CodexMinningEntities _ctx = new CodexMinningEntities();
+
+                var list = _ctx.SP_ExportMininngData().ToList();
+                var table = list.ToDataTable();
+
+                var fileConfig = _ctx.Settings.FirstOrDefault(x => x.Key == "ExportMininngData");
+
+                var exportFile = new ExportFileVM()
+                {
+                    FileName = "MininngData",
+                    FileColumnsSequence = fileConfig.Value.Split(',').ToArray(),
+                    FileType = "xlsx",
+                    TableFieldsCount = table?.Columns?.Count
+                };
+
+                ExportData.ExportExcel(exportFile, table);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
     }

@@ -112,6 +112,16 @@ warning 6002: The table/view 'arabcodex.dbo.ErrorLog' does not have a primary ke
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsAcive" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Key" Type="nvarchar" MaxLength="100" />
+          <Property Name="Value" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
         <EntityType Name="UserRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -336,6 +346,7 @@ warning 6002: The table/view 'arabcodex.dbo.Vw_GetUsers' does not have a primary
         <Function Name="SP_CheckUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_ExportMininngData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_GetAnalyticsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_GetMininngData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PageNumber" Type="int" Mode="In" />
@@ -390,6 +401,7 @@ warning 6002: The table/view 'arabcodex.dbo.Vw_GetUsers' does not have a primary
           <EntitySet Name="LookupParameter" EntityType="Self.LookupParameter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MinningTable" EntityType="Self.MinningTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Setting" EntityType="Self.Setting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" store:Type="Tables" store:Schema="dbo">
@@ -631,6 +643,8 @@ warning 6002: The table/view 'arabcodex.dbo.Vw_GetUsers' does not have a primary
             <Parameter Name="OrderBy" Mode="In" Type="String" />
             <Parameter Name="SearchYear" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Settings" EntityType="CodexMinningModel.Setting" />
+          <FunctionImport Name="SP_ExportMininngData" ReturnType="Collection(CodexMinningModel.SP_ExportMininngData_Result)" />
         </EntityContainer>
         <EntityType Name="LookupParameter">
           <Key>
@@ -997,6 +1011,47 @@ warning 6002: The table/view 'arabcodex.dbo.Vw_GetUsers' does not have a primary
           <Property Type="Int32" Name="ModifiedBy" Nullable="true" />
           <Property Type="Int32" Name="TotalRecords" Nullable="true" />
           <Property Type="Int32" Name="IsValueExists" Nullable="false" />
+          <Property Type="String" Name="HrefReferece" Nullable="true" MaxLength="2000" />
+        </ComplexType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Key" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="SP_ExportMininngData_Result">
+          <Property Type="Int64" Name="SrNo" Nullable="true" />
+          <Property Type="String" Name="Year" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Contaminant" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodGroup" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="FoodIdentifier" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="FoodCode" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodOrigin" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="FoodName" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FoodAnalyzed" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="StudyObjective" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="SamplingPlan" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="AnalyticalTechnique" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="QualityAssurance" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="LOD" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LODUnit" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LOQ" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LOQUnit" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Recovery" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Concentration" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="ConcentrationRangeMax" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="Average" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Median" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Unit" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="RSD" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="SamplesBelow" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="IndividualSampleAverageResults" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Referece" Nullable="true" MaxLength="2000" />
           <Property Type="String" Name="HrefReferece" Nullable="true" MaxLength="2000" />
         </ComplexType>
       </Schema>
@@ -1401,6 +1456,52 @@ warning 6002: The table/view 'arabcodex.dbo.Vw_GetUsers' does not have a primary
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="TotalRecords" ColumnName="TotalRecords" />
                 <ScalarProperty Name="IsValueExists" ColumnName="IsValueExists" />
+                <ScalarProperty Name="HrefReferece" ColumnName="HrefReferece" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="CodexMinningModel.Setting">
+              <MappingFragment StoreEntitySet="Setting">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ExportMininngData" FunctionName="CodexMinningModel.Store.SP_ExportMininngData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CodexMinningModel.SP_ExportMininngData_Result">
+                <ScalarProperty Name="SrNo" ColumnName="SrNo" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Contaminant" ColumnName="Contaminant" />
+                <ScalarProperty Name="FoodGroup" ColumnName="FoodGroup" />
+                <ScalarProperty Name="FoodIdentifier" ColumnName="FoodIdentifier" />
+                <ScalarProperty Name="FoodCode" ColumnName="FoodCode" />
+                <ScalarProperty Name="FoodOrigin" ColumnName="FoodOrigin" />
+                <ScalarProperty Name="FoodName" ColumnName="FoodName" />
+                <ScalarProperty Name="FoodAnalyzed" ColumnName="FoodAnalyzed" />
+                <ScalarProperty Name="StudyObjective" ColumnName="StudyObjective" />
+                <ScalarProperty Name="SamplingPlan" ColumnName="SamplingPlan" />
+                <ScalarProperty Name="AnalyticalTechnique" ColumnName="AnalyticalTechnique" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="LODUnit" ColumnName="LODUnit" />
+                <ScalarProperty Name="LOQ" ColumnName="LOQ" />
+                <ScalarProperty Name="LOQUnit" ColumnName="LOQUnit" />
+                <ScalarProperty Name="Recovery" ColumnName="Recovery" />
+                <ScalarProperty Name="Concentration" ColumnName="Concentration" />
+                <ScalarProperty Name="ConcentrationRangeMax" ColumnName="ConcentrationRangeMax" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
+                <ScalarProperty Name="Median" ColumnName="Median" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="RSD" ColumnName="RSD" />
+                <ScalarProperty Name="SamplesBelow" ColumnName="SamplesBelow" />
+                <ScalarProperty Name="IndividualSampleAverageResults" ColumnName="IndividualSampleAverageResults" />
+                <ScalarProperty Name="Referece" ColumnName="Referece" />
                 <ScalarProperty Name="HrefReferece" ColumnName="HrefReferece" />
               </ComplexTypeMapping>
             </ResultMapping>
